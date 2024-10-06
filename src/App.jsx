@@ -7,10 +7,10 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import Login from "./pages/Login";
-import SignUpSelection from "./pages/SignUpSelection";
-import PersonalSignUp from "./pages/PersonalSignUp";
-import CompanySignUp from "./pages/CompanySignUp";
+import Login from "./pages/auth/Login";
+import SignUpSelection from "./pages/auth/SignUpSelection";
+import PersonalSignUp from "./pages/auth/PersonalSignUp";
+import CompanySignUp from "./pages/auth/CompanySignUp";
 import Job from "./pages/Job";
 import Resume from "./pages/Resume";
 import RegistNotice from "./pages/RegistNotice";
@@ -18,12 +18,10 @@ import RegistResume from "./pages/RegistResume";
 
 function App() {
   const location = useLocation();
-  const hideHeader =
-    location.pathname === "/login" || location.pathname === "/signup";
-
+  const showHeader = location.pathname === "/";
   return (
     <div className="App">
-      {!hideHeader && <Header />}
+      {showHeader && <Header />}
       <Routes>
         <Route path="/" element={<JobList />} />
         <Route path="/login" element={<Login />} />
@@ -32,8 +30,8 @@ function App() {
         <Route path="/signup/company" element={<CompanySignUp />} />
         <Route path="/job" element={<Job />} />
         <Route path="/resume" element={<Resume />} />
-        <Route path="/RegistResume" element={<RegistResume />} />
-        <Route path="/RegistNotice" element={<RegistNotice />} />
+        <Route path="/registresume" element={<RegistResume />} />
+        <Route path="/registnotice" element={<RegistNotice />} />
       </Routes>
     </div>
   );

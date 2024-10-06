@@ -17,7 +17,7 @@ const S = {
   JobCards: styled.div`
     padding: 10px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
   `,
 };
