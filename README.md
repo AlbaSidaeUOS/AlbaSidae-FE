@@ -28,5 +28,5 @@ npm start
 - 개별 branch에서 작업을 모두 한 뒤, 모든 commit을 push하고 github에서 PR(Pull Request)을 합니다.
 - 하나의 branch의 내용이 너무 많지 않도록 만들어주세요.
 - 새로운 branch를 만들때, main branch에서 git pull을 하고 생성해주세요.
-- Commit message는 https://velog.io/@jiheon/Git-Commit-message-%EA%B7%9C%EC%B9%99를 따라주세요.
+- Commit message는 [https://velog.io/@jiheon/Git-Commit-message-%EA%B7%9C%EC%B9%99]를 따라주세요.
 - 주의: **main branch에 절대 push 하지마세요**
