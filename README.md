@@ -19,7 +19,7 @@ npm start
 - vscode extension(Ctrl or Command + Shift + X)에서 Prettier 설치
 - 설정(Ctrl or Command + ,)에서 Default Formatter로 Prettier - Code formatter를 선택
 - Format On Save 옵션 체크
-- 이후 저장할 때마다 formatting이 잘되는지 확인(세미콜론이 모든 코드 끝에 생성되고 불필요한 공백 등이 사라지게 됨)
+- 이후 저장할 때마다 formatting이 잘 되는지 확인(세미콜론이 모든 코드 끝에 생성되고 불필요한 공백 등이 사라지게 됨)
 
 ## 가이드
 
