@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import HeaderLogin from "../../components/auth/HeaderLogin";
 
 const S = {
-  Wrapper: styled.div`
+  Wrapper: styled.div``,
+  Container: styled.div`
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
   `,
   Title: styled.h2`
     font-size: 24px;
@@ -83,41 +84,44 @@ const Login = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>로그인 후 다양한 서비스를 이용해 보세요.</S.Title>
-      <S.SubText>
-        아직 알바시대 회원이 아니시라면, 지금 <a href="/signup">회원가입</a>을
-        해주세요.
-      </S.SubText>
+      <HeaderLogin />
+      <S.Container>
+        <S.Title>로그인 후 다양한 서비스를 이용해 보세요.</S.Title>
+        <S.SubText>
+          아직 알바시대 회원이 아니시라면, 지금 <a href="/signup">회원가입</a>을
+          해주세요.
+        </S.SubText>
 
-      <S.TabWrapper>
-        <S.Tab
-          active={activeTab === "personal"}
-          onClick={() => setActiveTab("personal")}
-        >
-          개인회원 <br />
-          (일자리 찾기)
-        </S.Tab>
-        <S.Tab
-          active={activeTab === "company"}
-          onClick={() => setActiveTab("company")}
-        >
-          기업회원 <br />
-          (알바생 찾기)
-        </S.Tab>
-      </S.TabWrapper>
+        <S.TabWrapper>
+          <S.Tab
+            active={activeTab === "personal"}
+            onClick={() => setActiveTab("personal")}
+          >
+            개인회원 <br />
+            (일자리 찾기)
+          </S.Tab>
+          <S.Tab
+            active={activeTab === "company"}
+            onClick={() => setActiveTab("company")}
+          >
+            기업회원 <br />
+            (알바생 찾기)
+          </S.Tab>
+        </S.TabWrapper>
 
-      <S.InputWrapper>
-        <S.Input type="text" placeholder="아이디" />
-        <S.Input type="password" placeholder="비밀번호" />
-      </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Input type="text" placeholder="아이디" />
+          <S.Input type="password" placeholder="비밀번호" />
+        </S.InputWrapper>
 
-      <S.LoginButton>로그인</S.LoginButton>
+        <S.LoginButton>로그인</S.LoginButton>
 
-      <S.LinksWrapper>
-        <a href="/signup">회원가입</a>
-        <a href="/find-id">아이디 찾기</a>
-        <a href="/find-password">비밀번호 찾기</a>
-      </S.LinksWrapper>
+        <S.LinksWrapper>
+          <a href="/signup">회원가입</a>
+          <a href="/find-id">아이디 찾기</a>
+          <a href="/find-password">비밀번호 찾기</a>
+        </S.LinksWrapper>
+      </S.Container>
     </S.Wrapper>
   );
 };
