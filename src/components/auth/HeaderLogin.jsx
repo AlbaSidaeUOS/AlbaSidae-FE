@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ReactComponent as UOSLogo } from "../../images/UOSLogo.svg";
 
 const S = {
   HeaderWrapper: styled.header`
@@ -35,19 +36,32 @@ const S = {
     font-size: 23px;
     font-weight: lighter;
   `,
+  UOSLogo: styled(UOSLogo)`
+    width: 50px;
+    height: 50px;
+  `,
+  Left: styled.div`
+    display: flex;
+    gap: 10px;
+    padding-bottom: 5px;
+  `,
 };
 
 const HeaderSignUp = () => {
   return (
     <S.HeaderWrapper>
-      <S.Link to="/" className="link">
-        <S.Title>알바시대</S.Title>
-      </S.Link>
+      <S.Left>
+        <S.Link to="/" className="link">
+          <S.Title>알바시대</S.Title>
+        </S.Link>
+        <S.UOSLogo />
+      </S.Left>
+
       <S.Right>
         <S.Link to="/job" className="link">
           <S.Job>채용정보</S.Job>
         </S.Link>
-        <S.Split>I</S.Split>
+        <S.Split>|</S.Split>
         <S.Link to="/resume" className="link">
           <S.Resume>인재정보</S.Resume>
         </S.Link>

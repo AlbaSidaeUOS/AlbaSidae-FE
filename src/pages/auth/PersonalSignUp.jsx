@@ -62,6 +62,9 @@ const S = {
     border: 1px solid #fae04b;
     margin-bottom: 20px;
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   `,
 };
 

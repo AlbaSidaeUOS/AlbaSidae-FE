@@ -45,6 +45,9 @@ const S = {
     margin-top: auto;
     width: 100%;
     transform: translateY(1px);
+    &:hover {
+      opacity: 0.8;
+    }
   `,
   Regist: styled.div`
     color: ${({ type }) => (type === "personal" ? "black" : "white")};

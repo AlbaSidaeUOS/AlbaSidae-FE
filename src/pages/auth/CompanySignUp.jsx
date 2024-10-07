@@ -62,6 +62,9 @@ const S = {
     border: 1px solid #2f6df6;
     margin-bottom: 20px;
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   `,
 
   InputButton: styled.div`
@@ -72,7 +75,7 @@ const S = {
     border: 1px solid #ddd;
     border-radius: 10px;
     margin-bottom: 20px;
-    padding: 20px 280px 20px 0px;
+    padding: 20px 280px 20px 10px;
     outline: none;
     box-sizing: border-box;
     align-items: center;
@@ -89,6 +92,9 @@ const S = {
     border-radius: 7px;
     border: 1px solid #2f6df6;
     cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
   `,
 };
 
