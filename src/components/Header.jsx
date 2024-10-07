@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ReactComponent as UOSLogo } from "../images/UOSLogo.svg";
 
 const S = {
   HeaderWrapper: styled.header`
@@ -10,7 +11,7 @@ const S = {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 18%;
+    gap: 13%;
   `,
   Title: styled.div`
     diplay: flex;
@@ -48,7 +49,7 @@ const S = {
     }
   `,
   HeaderSearch: styled.div`
-    padding: 10px;
+    padding: 5px;
     width: 50%;
   `,
   SearchInput: styled.input`
@@ -96,55 +97,70 @@ const S = {
     color: inherit;
     text-decoration: none;
   `,
+  UOSLogo: styled(UOSLogo)`
+    width: 50px;
+    height: 50px;
+  `,
+  Left: styled.div`
+    display: flex;
+    gap: 10px;
+    padding-bottom: 15px;
+  `,
 };
 
 const Header = () => {
   return (
-    <S.HeaderWrapper>
-      <S.MainHeader>
-        <S.Profile>
-          <S.Link to="/login" className="link">
-            <S.Login>로그인</S.Login>
-          </S.Link>
-          <S.Link to="/signup" className="link">
-            <S.SignUp>회원가입</S.SignUp>
-          </S.Link>
-        </S.Profile>
+    <>
+      <S.HeaderWrapper>
+        <S.MainHeader>
+          <S.Profile>
+            <S.Link to="/login" className="link">
+              <S.Login>로그인</S.Login>
+            </S.Link>
+            <S.Link to="/signup" className="link">
+              <S.SignUp>회원가입</S.SignUp>
+            </S.Link>
+          </S.Profile>
 
-        <S.Header>
-          <S.Link to="/" className="link">
-            <S.Title>알바시대</S.Title>
-          </S.Link>
-          <S.HeaderSearch>
-            <S.SearchInput type="text" placeholder="검색" />
-          </S.HeaderSearch>
-        </S.Header>
-      </S.MainHeader>
+          <S.Header>
+            <S.Left>
+              <S.Link to="/" className="link">
+                <S.Title>알바시대</S.Title>
+              </S.Link>
+              <S.UOSLogo />
+            </S.Left>
 
-      <S.Menu>
-        <S.Nav>
-          <ul>
-            <li>전체메뉴</li>
+            <S.HeaderSearch>
+              <S.SearchInput type="text" placeholder="검색" />
+            </S.HeaderSearch>
+          </S.Header>
+        </S.MainHeader>
 
-            <li>
-              <S.Link to="/job">채용정보</S.Link>
-            </li>
-            <li>
-              <S.Link to="/resume">인재정보</S.Link>
-            </li>
-          </ul>
-        </S.Nav>
+        <S.Menu>
+          <S.Nav>
+            <ul>
+              <li>전체메뉴</li>
 
-        <S.HeaderButtons>
-          <button>
-            <S.Link to="/RegistResume">이력서 등록</S.Link>
-          </button>
-          <button>
-            <S.Link to="/RegistNotice">공고 등록</S.Link>
-          </button>
-        </S.HeaderButtons>
-      </S.Menu>
-    </S.HeaderWrapper>
+              <li>
+                <S.Link to="/job">채용정보</S.Link>
+              </li>
+              <li>
+                <S.Link to="/resume">인재정보</S.Link>
+              </li>
+            </ul>
+          </S.Nav>
+
+          <S.HeaderButtons>
+            <button>
+              <S.Link to="/RegistResume">이력서 등록</S.Link>
+            </button>
+            <button>
+              <S.Link to="/RegistNotice">공고 등록</S.Link>
+            </button>
+          </S.HeaderButtons>
+        </S.Menu>
+      </S.HeaderWrapper>
+    </>
   );
 };
 

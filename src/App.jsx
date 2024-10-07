@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
-import JobList from "./pages/JobList";
+import JobList from "./components/JobList";
 import {
   BrowserRouter as Router,
   Route,
@@ -15,6 +15,8 @@ import Job from "./pages/Job";
 import Resume from "./pages/Resume";
 import RegistNotice from "./pages/RegistNotice";
 import RegistResume from "./pages/RegistResume";
+import FindID from "./pages/auth/FindID";
+import FindPassword from "./pages/auth/FindPassword";
 
 function App() {
   const location = useLocation();
@@ -32,6 +34,8 @@ function App() {
         <Route path="/resume" element={<Resume />} />
         <Route path="/registresume" element={<RegistResume />} />
         <Route path="/registnotice" element={<RegistNotice />} />
+        <Route path="/find-id" element={<FindID />} />
+        <Route path="/find-password" element={<FindPassword />} />
       </Routes>
     </div>
   );

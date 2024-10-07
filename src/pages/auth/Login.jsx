@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import HeaderLogin from "../../components/auth/HeaderLogin";
+import { Link } from "react-router-dom";
 
 const S = {
-  Wrapper: styled.div`
-    max-width: 400px;
+  Wrapper: styled.div``,
+  Container: styled.div`
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     margin: 50px auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
   `,
-  Title: styled.h2`
-    font-size: 24px;
+  Title: styled.div`
+    font-size: 27px;
     text-align: center;
-    margin-bottom: 10px;
     font-weight: bold;
+    padding: 10px 0 7px 0;
   `,
-  SubText: styled.p`
+  SubText: styled.div`
     font-size: 14px;
     text-align: center;
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     a {
       color: #0070f3;
       text-decoration: underline;
       cursor: pointer;
     }
   `,
+
   TabWrapper: styled.div`
     display: flex;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   `,
   Tab: styled.div`
     flex: 1;
@@ -37,44 +41,52 @@ const S = {
     cursor: pointer;
     font-size: 16px;
     border: 1px solid #ddd;
-    border-bottom: none;
+    border-radius: 10px;
+
     background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
-  InputWrapper: styled.div`
-    margin-bottom: 15px;
-  `,
+
+  InputWrapper: styled.div``,
   Input: styled.input`
-    width: 100%;
-    padding: 10px;
+    width: 96.5%;
     font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 10px;
+    padding: 15px 0px 15px 15px;
+    outline: none;
   `,
+
   LoginButton: styled.button`
     width: 100%;
     padding: 15px;
-    background-color: #ffe500;
+    background-color: ${({ activeTab }) =>
+      activeTab === "personal" ? "#fdf25d" : "#5194f6"};
+    border: 1px solid
+      ${({ activeTab }) => (activeTab === "personal" ? "#fae04b" : "#2f6df6")};
     color: black;
     font-size: 16px;
-    border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
     &:hover {
-      background-color: #ffd700;
+      opacity: 0.8;
     }
   `,
-  LinksWrapper: styled.div`
+  Link: styled(Link)`
+    font-size: 14px;
+    text-decoration: none;
+    color: inherit;
+  `,
+  Bottom: styled.div`
     display: flex;
     justify-content: space-between;
+    padding: 15px 40px 10px 40px;
+  `,
+  Split: styled.div`
+    color: #ddd;
     font-size: 14px;
-    color: #0070f3;
-    a {
-      text-decoration: none;
-      cursor: pointer;
-    }
   `,
 };
 
@@ -83,41 +95,46 @@ const Login = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>로그인 후 다양한 서비스를 이용해 보세요.</S.Title>
-      <S.SubText>
-        아직 알바시대 회원이 아니시라면, 지금 <a href="/signup">회원가입</a>을
-        해주세요.
-      </S.SubText>
+      <HeaderLogin />
+      <S.Container>
+        <S.Title>로그인 후 다양한 서비스를 이용해 보세요.</S.Title>
+        <S.SubText>
+          아직 알바시대 회원이 아니시라면, 지금 <a href="/signup">회원가입</a>을
+          해주세요.
+        </S.SubText>
 
-      <S.TabWrapper>
-        <S.Tab
-          active={activeTab === "personal"}
-          onClick={() => setActiveTab("personal")}
-        >
-          개인회원 <br />
-          (일자리 찾기)
-        </S.Tab>
-        <S.Tab
-          active={activeTab === "company"}
-          onClick={() => setActiveTab("company")}
-        >
-          기업회원 <br />
-          (알바생 찾기)
-        </S.Tab>
-      </S.TabWrapper>
+        <S.TabWrapper>
+          <S.Tab
+            active={activeTab === "personal"}
+            onClick={() => setActiveTab("personal")}
+          >
+            개인회원 <br />
+            (일자리 찾기)
+          </S.Tab>
+          <S.Tab
+            active={activeTab === "company"}
+            onClick={() => setActiveTab("company")}
+          >
+            기업회원 <br />
+            (알바생 찾기)
+          </S.Tab>
+        </S.TabWrapper>
 
-      <S.InputWrapper>
-        <S.Input type="text" placeholder="아이디" />
-        <S.Input type="password" placeholder="비밀번호" />
-      </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Input type="text" placeholder="아이디" />
+          <S.Input type="password" placeholder="비밀번호" />
+        </S.InputWrapper>
 
-      <S.LoginButton>로그인</S.LoginButton>
+        <S.LoginButton activeTab={activeTab}>로그인</S.LoginButton>
 
-      <S.LinksWrapper>
-        <a href="/signup">회원가입</a>
-        <a href="/find-id">아이디 찾기</a>
-        <a href="/find-password">비밀번호 찾기</a>
-      </S.LinksWrapper>
+        <S.Bottom>
+          <S.Link to="/signup">회원가입</S.Link>
+          <S.Split>|</S.Split>
+          <S.Link to="/find-id">아이디 찾기</S.Link>
+          <S.Split>|</S.Split>
+          <S.Link to="/find-password">비밀번호 찾기</S.Link>
+        </S.Bottom>
+      </S.Container>
     </S.Wrapper>
   );
 };

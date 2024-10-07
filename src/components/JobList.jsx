@@ -1,5 +1,5 @@
 import React from "react";
-import JobCard from "../components/JobCard";
+import JobCard from "./JobCard";
 import mockData from "../mock/mock-job";
 import styled from "styled-components";
 

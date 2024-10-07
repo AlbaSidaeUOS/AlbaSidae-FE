@@ -16,10 +16,10 @@ const S = {
     font-size: 30px;
     font-weight: bold;
   `,
-  Home: styled.div`
+  Job: styled.div`
     font-size: 20px;
   `,
-  Login: styled.div`
+  Resume: styled.div`
     font-size: 20px;
   `,
   Right: styled.div`
@@ -58,12 +58,12 @@ const HeaderSignUp = () => {
       </S.Left>
 
       <S.Right>
-        <S.Link to="/" className="link">
-          <S.Home>Home</S.Home>
+        <S.Link to="/job" className="link">
+          <S.Job>채용정보</S.Job>
         </S.Link>
         <S.Split>|</S.Split>
-        <S.Link to="/login" className="link">
-          <S.Login>로그인</S.Login>
+        <S.Link to="/resume" className="link">
+          <S.Resume>인재정보</S.Resume>
         </S.Link>
       </S.Right>
     </S.HeaderWrapper>
