@@ -5,7 +5,7 @@ import { ReactComponent as UOSLogo } from "../images/UOSLogo.svg";
 
 const S = {
   HeaderWrapper: styled.header`
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
   `,
   Header: styled.div`
     display: flex;
@@ -15,8 +15,9 @@ const S = {
   `,
   Title: styled.div`
     diplay: flex;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
+    padding-bottom: 7px;
   `,
   Nav: styled.nav`
     ul {
@@ -84,7 +85,7 @@ const S = {
     display: flex;
     padding: 15px;
     padding-left: 25px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ddd;
     justify-content: space-between;
     align-items: center;
   `,
@@ -105,6 +106,11 @@ const S = {
     display: flex;
     gap: 10px;
     padding-bottom: 15px;
+    align-items: center;
+  `,
+  Split: styled.div`
+    color: #ddd;
+    font-size: 16px;
   `,
 };
 
@@ -140,7 +146,7 @@ const Header = () => {
           <S.Nav>
             <ul>
               <li>전체메뉴</li>
-
+              <S.Split>|</S.Split>
               <li>
                 <S.Link to="/job">채용정보</S.Link>
               </li>

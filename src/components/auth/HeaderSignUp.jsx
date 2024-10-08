@@ -17,10 +17,10 @@ const S = {
     font-weight: bold;
   `,
   Home: styled.div`
-    font-size: 20px;
+    font-size: 15px;
   `,
   Login: styled.div`
-    font-size: 20px;
+    font-size: 15px;
   `,
   Right: styled.div`
     display: flex;

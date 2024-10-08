@@ -10,7 +10,7 @@ const S = {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 20px 35px 20px 35px;
   `,
   Title: styled.div`
     font-size: 27px;
@@ -34,15 +34,26 @@ const S = {
     display: flex;
     margin-bottom: 10px;
   `,
-  Tab: styled.div`
+  TabLeft: styled.div`
     flex: 1;
     text-align: center;
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 10px;
-
+    border-radius: 10px 0 0 10px;
+    background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
+    font-weight: ${({ active }) => (active ? "bold" : "normal")};
+  `,
+  TabRight: styled.div`
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
     background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
@@ -104,20 +115,20 @@ const Login = () => {
         </S.SubText>
 
         <S.TabWrapper>
-          <S.Tab
+          <S.TabLeft
             active={activeTab === "personal"}
             onClick={() => setActiveTab("personal")}
           >
             개인회원 <br />
             (일자리 찾기)
-          </S.Tab>
-          <S.Tab
+          </S.TabLeft>
+          <S.TabRight
             active={activeTab === "company"}
             onClick={() => setActiveTab("company")}
           >
             기업회원 <br />
             (알바생 찾기)
-          </S.Tab>
+          </S.TabRight>
         </S.TabWrapper>
 
         <S.InputWrapper>
