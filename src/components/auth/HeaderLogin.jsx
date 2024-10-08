@@ -17,10 +17,10 @@ const S = {
     font-weight: bold;
   `,
   Job: styled.div`
-    font-size: 20px;
+    font-size: 15px;
   `,
   Resume: styled.div`
-    font-size: 20px;
+    font-size: 15px;
   `,
   Right: styled.div`
     display: flex;

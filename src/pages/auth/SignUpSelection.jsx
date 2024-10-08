@@ -18,7 +18,7 @@ const S = {
     font-size: 27px;
     font-weight: bold;
     margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
     padding: 15px 0 15px 0;
   `,
   Card: styled.div`
