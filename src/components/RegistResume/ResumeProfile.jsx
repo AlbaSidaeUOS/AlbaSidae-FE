@@ -1,6 +1,6 @@
 import React from "react";
-import mockData from "../mock/mock-profile";
-import S from "../uis/RegistResumeUI";
+import mockData from "../../mock/mock-profile";
+import S from "../../uis/RegistResumeUI";
 
 const ResumeProfile = () => {
   const profile = mockData[0];

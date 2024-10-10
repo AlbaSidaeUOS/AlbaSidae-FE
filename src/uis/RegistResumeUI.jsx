@@ -104,15 +104,27 @@ const S = {
   `,
   TabWrapper: styled.div`
     display: flex;
-    margin-left: 20px;
+    flex-wrap: wrap;
+    min-width: 1000px;
+    margin-left: 33px;
   `,
   TabLeft: styled.div`
     text-align: center;
     padding: 7px 50px 7px 50px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
     border: 1px solid #ddd;
     border-radius: 10px 0 0 10px;
+    background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
+    font-weight: ${({ active }) => (active ? "bold" : "normal")};
+  `,
+  TabMiddle: styled.div`
+    text-align: center;
+    padding: 7px 50px 7px 50px;
+    cursor: pointer;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    border-left: none;
     background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
@@ -120,7 +132,7 @@ const S = {
     text-align: center;
     padding: 7px 50px 7px 50px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
     border: 1px solid #ddd;
     border-left: none;
     border-radius: 0px 10px 10px 0px;
@@ -141,6 +153,20 @@ const S = {
   `,
   CheckBoxInput: styled.input`
     margin-right: 5px;
+  `,
+  SubmitButton: styled.button`
+    width: 99%;
+    padding: 20px;
+    margin: 20px 0 20px 0px;
+    font-size: 20px;
+    font-weightl: bold;
+    background-color: #fdf25d;
+    border: 1px solid #fae04b;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   `,
 };
 

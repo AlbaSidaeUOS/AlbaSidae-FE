@@ -91,17 +91,18 @@ const PersonalSignUp = () => {
     }
 
     const requestBody = {
-      id: 0,
       username: formData.username,
       password: formData.password,
       role: "user",
       name: formData.name,
       birthDate: formData.birthDate,
+      email: formData.email,
+      phone: formData.phone,
       businessNumber: "",
     };
 
     try {
-      const response = await fetch("api/users/register", {
+      const response = await fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +111,7 @@ const PersonalSignUp = () => {
       });
 
       const data = await response.json();
-      if (response.ok) {
+      if (response.ok && data.result === true) {
         alert("회원가입이 완료되었습니다.");
       } else {
         alert("회원가입에 실패했습니다: " + data.message);
