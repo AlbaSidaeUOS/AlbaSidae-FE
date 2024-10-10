@@ -29,7 +29,6 @@ const S = {
       cursor: pointer;
     }
   `,
-
   TabWrapper: styled.div`
     display: flex;
     margin-bottom: 10px;
@@ -57,7 +56,6 @@ const S = {
     background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
-
   InputWrapper: styled.div``,
   Input: styled.input`
     width: 96.5%;

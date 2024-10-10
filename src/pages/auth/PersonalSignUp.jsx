@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import HeaderSignUp from "../../components/auth/HeaderSignUp";
 
@@ -69,6 +69,59 @@ const S = {
 };
 
 const PersonalSignUp = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    name: "",
+    birthDate: "",
+    email: "",
+    phone: "",
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async () => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    const requestBody = {
+      username: formData.username,
+      password: formData.password,
+      role: "user",
+      name: formData.name,
+      birthDate: formData.birthDate,
+      email: formData.email,
+      phone: formData.phone,
+      businessNumber: "",
+    };
+
+    try {
+      const response = await fetch("/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const data = await response.json();
+      if (response.ok && data.result === true) {
+        alert("회원가입이 완료되었습니다.");
+      } else {
+        alert("회원가입에 실패했습니다: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("서버 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <S.Wrapper>
       <HeaderSignUp />
@@ -77,23 +130,69 @@ const PersonalSignUp = () => {
         <S.Title>개인회원가입</S.Title>
 
         <S.InputWrapper>
-          <S.Input type="text" placeholder="아이디 (4~15자 영문, 숫자)" />
+          <S.Input
+            type="text"
+            name="username"
+            placeholder="아이디 (4~15자 영문, 숫자)"
+            value={formData.username}
+            onChange={handleChange}
+          />
 
           <S.DoubleWrapper>
-            <S.InputFirst type="password" placeholder="비밀번호 (8~15자)" />
-            <S.InputSecond type="password" placeholder="비밀번호 재입력" />
+            <S.InputFirst
+              type="password"
+              name="password"
+              placeholder="비밀번호 (8~15자)"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <S.InputSecond
+              type="password"
+              name="confirmPassword"
+              placeholder="비밀번호 재입력"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
           </S.DoubleWrapper>
 
-          <S.Input type="text" placeholder="이름" />
-          <S.Input type="text" placeholder="생년월일" />
-          <S.Input type="email" placeholder="이메일" />
+          <S.Input
+            type="text"
+            name="name"
+            placeholder="이름"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <S.Input
+            type="text"
+            name="birthDate"
+            placeholder="생년월일"
+            value={formData.birthDate}
+            onChange={handleChange}
+          />
+          <S.Input
+            type="email"
+            name="email"
+            placeholder="이메일"
+            value={formData.email}
+            onChange={handleChange}
+          />
           <S.DoubleWrapper>
-            <S.InputFirst type="text" placeholder="휴대폰 번호" />
-            <S.InputSecond type="text" placeholder="인증번호" />
+            <S.InputFirst
+              type="text"
+              name="phone"
+              placeholder="휴대폰 번호"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            {/* <S.InputSecond type="text"
+              name="verificationCode"
+              placeholder="인증번호"
+              value={formData.verificationCode}
+              onChange={handleChange} /> */}
           </S.DoubleWrapper>
         </S.InputWrapper>
 
-        <S.Button>가입하기</S.Button>
+        <S.Button onClick={handleSubmit}>가입하기</S.Button>
       </S.Container>
     </S.Wrapper>
   );

@@ -17,6 +17,7 @@ import RegistNotice from "./pages/RegistNotice";
 import RegistResume from "./pages/RegistResume";
 import FindID from "./pages/auth/FindID";
 import FindPassword from "./pages/auth/FindPassword";
+import UserInfoChange from "./pages/UserInfoChange";
 
 function App() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/registnotice" element={<RegistNotice />} />
         <Route path="/find-id" element={<FindID />} />
         <Route path="/find-password" element={<FindPassword />} />
+        <Route path="/userinfochange" element={<UserInfoChange />} />
       </Routes>
     </div>
   );
