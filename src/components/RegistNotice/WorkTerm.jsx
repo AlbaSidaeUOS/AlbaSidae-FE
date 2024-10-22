@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import S from "../../uis/RegistUI";
 
-const WorkTerm = () => {
-  const [activeTab, setActiveTab] = useState("threemonth");
+const WorkTerm = ({ value, onChange }) => {
+  const [activeTab, setActiveTab] = useState(value || "threemonth");
+
+  useEffect(() => {
+    onChange(activeTab);
+  }, [activeTab, onChange]);
+
   return (
     <S.TabWrapper>
       <S.TabLeft

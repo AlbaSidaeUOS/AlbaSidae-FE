@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import S from "../../uis/RegistUI";
 
-const NoticeCompanyImage = () => {
-  const [image, setImage] = useState(null);
+const NoticeCompanyImage = ({ value, onChange }) => {
+  const [image, setImage] = useState(value);
+
+  useEffect(() => {
+    setImage(value);
+  }, [value]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+      onChange(imageUrl);
     }
   };
+
   return (
     <S.ImageContainer>
       <S.InputWrapper>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import S from "../../uis/RegistUI";
 
-const SubmitMethod = () => {
+const SubmitMethod = ({ value, onChange }) => {
   const methodList = [
     "온라인지원",
     "간편입사지원",
@@ -13,7 +13,12 @@ const SubmitMethod = () => {
     "우편",
     "팩스",
   ];
-  const [method, setMethod] = useState([]);
+  const [method, setMethod] = useState(value || []);
+
+  useEffect(() => {
+    onChange(method);
+  }, [method, onChange]);
+
   const handleMethodChange = (e) => {
     const selectedMethod = e.target.value;
     if (method.includes(selectedMethod)) {
@@ -22,6 +27,7 @@ const SubmitMethod = () => {
       setMethod([...method, selectedMethod]);
     }
   };
+
   return (
     <S.CheckBoxWrapper>
       {methodList.map((type) => (

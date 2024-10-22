@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import S from "../../uis/RegistUI";
 
-const WorkDays = () => {
+const WorkDays = ({ value, onChange }) => {
   const daysList = [
     "월요일",
     "화요일",
@@ -11,7 +11,12 @@ const WorkDays = () => {
     "토요일",
     "일요일",
   ];
-  const [days, setDays] = useState([]);
+  const [days, setDays] = useState(value || []);
+
+  useEffect(() => {
+    onChange(days);
+  }, [days, onChange]);
+
   const handleDaysChange = (e) => {
     const selectedDays = e.target.value;
     if (days.includes(selectedDays)) {
@@ -20,6 +25,7 @@ const WorkDays = () => {
       setDays([...days, selectedDays]);
     }
   };
+
   return (
     <S.CheckBoxWrapper>
       {daysList.map((type) => (

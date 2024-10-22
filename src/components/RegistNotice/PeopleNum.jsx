@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import S from "../../uis/RegistUI";
 
-const PeopleNum = () => {
-  const [selectedPeopleNum, setSelectedPeopleNum] = useState(null);
+const PeopleNum = ({ value, onChange }) => {
+  const [selectedPeopleNum, setSelectedPeopleNum] = useState(value || null);
   const [directInput, setDirectInput] = useState("");
+
+  useEffect(() => {
+    if (selectedPeopleNum === "direct") {
+      onChange(directInput);
+    } else {
+      onChange(selectedPeopleNum);
+    }
+  }, [selectedPeopleNum, directInput, onChange]);
+
   const handleSelectPeopleNum = (peoplenum) => {
     setSelectedPeopleNum(peoplenum);
   };
+
   const handleDirectInputChange = (e) => {
     setDirectInput(e.target.value);
   };

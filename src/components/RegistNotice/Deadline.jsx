@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import S from "../../uis/RegistUI";
 
-const Deadline = () => {
-  const [selectedDeadline, setSelectedDeadline] = useState(null);
-  const [deadlineDate, setDeadlineDate] = useState("");
+const Deadline = ({ value, onChange }) => {
+  const { selectedDeadline, deadlineDate } = value || {
+    selectedDeadline: "",
+    deadlineDate: "",
+  };
 
   const handleSelectDeadline = (deadline) => {
-    setSelectedDeadline(deadline);
+    if (deadline === "select") {
+      onChange({ selectedDeadline: "select", deadlineDate: "" });
+    } else {
+      onChange({ selectedDeadline: "immediate", deadlineDate });
+    }
   };
 
   const handleDateChange = (e) => {
-    setDeadlineDate(e.target.value);
+    onChange({ selectedDeadline: "immediate", deadlineDate: e.target.value });
   };
 
   return (

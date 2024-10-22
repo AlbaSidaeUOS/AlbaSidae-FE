@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderSignUp from "../../components/auth/HeaderSignUp";
 import S from "../../uis/SignupUI";
-import { AuthContext } from "../../components/auth/AutContext";
+import { AuthContext } from "../../components/auth/AuthContext";
 
 const PersonalSignUp = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ const PersonalSignUp = () => {
     phone: "",
   });
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setFormData({
@@ -40,7 +40,8 @@ const PersonalSignUp = () => {
 
     try {
       const response = await fetch(
-        `https://6153-211-178-236-156.ngrok-free.app/api/users/register`,
+        // `https://6153-211-178-236-156.ngrok-free.app/api/users/register`,
+        "http://localhost:8080/api/users/register",
         {
           method: "POST",
           headers: {
@@ -54,7 +55,7 @@ const PersonalSignUp = () => {
       const data = await response.json();
       if (response.ok && data.result === true) {
         alert("회원가입이 완료되었습니다.");
-        login(data.data.token, "PERSONAL");
+        signup(data.data.token, "PERSONAL", formData.email);
         navigate("/");
       } else {
         alert(data.message);
@@ -108,11 +109,11 @@ const PersonalSignUp = () => {
           <S.Input
             type="text"
             name="birthDate"
-            placeholder="생년월일"
+            placeholder="생년월일(6자리)"
             value={formData.birthDate}
             onChange={handleChange}
           />
-
+          {/* 성별 추가 */}
           <S.DoubleWrapper>
             <S.InputFirst
               type="text"

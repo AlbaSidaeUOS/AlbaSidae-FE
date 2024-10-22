@@ -1,7 +1,15 @@
 import S from "../../uis/RegistUI";
 
-const NoticeCompanyName = () => {
-  return <S.NoticeInput type="text" placeholder="회사명" />;
+const NoticeCompanyName = ({ value, onChange }) => {
+  return (
+    <S.NoticeInput
+      type="text"
+      name="companyName"
+      value={value}
+      placeholder="회사명"
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
 };
 
 export default NoticeCompanyName;

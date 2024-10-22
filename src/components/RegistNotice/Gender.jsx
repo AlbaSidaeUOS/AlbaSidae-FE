@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import S from "../../uis/RegistUI";
 
-const Gender = () => {
-  const [selectedGender, setSelectedGender] = useState(null);
+const Gender = ({ value, onChange }) => {
   const handleSelectGender = (gender) => {
-    setSelectedGender(gender);
+    onChange(gender);
   };
 
   return (
     <S.CheckBoxWrapper>
       <S.Button
-        isSelected={selectedGender === "any"}
+        isSelected={value === "any"}
         onClick={() => handleSelectGender("any")}
       >
         성별무관
       </S.Button>
       <S.Button
-        isSelected={selectedGender === "male"}
+        isSelected={value === "male"}
         onClick={() => handleSelectGender("male")}
       >
         남자
       </S.Button>
       <S.Button
-        isSelected={selectedGender === "female"}
+        isS
+        elected={value === "female"}
         onClick={() => handleSelectGender("female")}
       >
         여자
