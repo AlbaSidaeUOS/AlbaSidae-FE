@@ -13,6 +13,7 @@ const PersonalSignUp = () => {
     birthDate: "",
     phone: "",
   });
+  const [activeTab, setActiveTab] = useState("male");
   const navigate = useNavigate();
   const { signup } = useContext(AuthContext);
 
@@ -113,7 +114,20 @@ const PersonalSignUp = () => {
             value={formData.birthDate}
             onChange={handleChange}
           />
-          {/* 성별 추가 */}
+          <S.TabWrapper>
+            <S.TabLeft
+              active={activeTab === "male"}
+              onClick={() => setActiveTab("male")}
+            >
+              남
+            </S.TabLeft>
+            <S.TabRight
+              active={activeTab === "female"}
+              onClick={() => setActiveTab("female")}
+            >
+              여
+            </S.TabRight>
+          </S.TabWrapper>
           <S.DoubleWrapper>
             <S.InputFirst
               type="text"
