@@ -21,8 +21,7 @@ const Gender = ({ value, onChange }) => {
         남자
       </S.Button>
       <S.Button
-        isS
-        elected={value === "female"}
+        isSelected={value === "female"}
         onClick={() => handleSelectGender("female")}
       >
         여자

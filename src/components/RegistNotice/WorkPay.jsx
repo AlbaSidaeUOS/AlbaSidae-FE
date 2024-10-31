@@ -1,4 +1,3 @@
-import React from "react";
 import S from "../../uis/RegistUI";
 
 const WorkPay = ({ value, onChange }) => {
@@ -7,8 +6,8 @@ const WorkPay = ({ value, onChange }) => {
       <S.PayInput
         type="text"
         value={value}
-        placeholder="예) 12000"
         onChange={(e) => onChange(e.target.value)}
+        placeholder="예) 12000"
       />
       &nbsp;원
     </div>

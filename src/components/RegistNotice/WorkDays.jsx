@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import S from "../../uis/RegistUI";
 
-const WorkDays = ({ value, onChange }) => {
+const WorkDays = ({ value = [], onChange }) => {
   const daysList = [
     "월요일",
     "화요일",
@@ -11,18 +11,13 @@ const WorkDays = ({ value, onChange }) => {
     "토요일",
     "일요일",
   ];
-  const [days, setDays] = useState(value || []);
-
-  useEffect(() => {
-    onChange(days);
-  }, [days, onChange]);
 
   const handleDaysChange = (e) => {
     const selectedDays = e.target.value;
-    if (days.includes(selectedDays)) {
-      setDays(days.filter((type) => type !== selectedDays));
+    if (value.includes(selectedDays)) {
+      onChange(value.filter((type) => type !== selectedDays));
     } else {
-      setDays([...days, selectedDays]);
+      onChange([...value, selectedDays]);
     }
   };
 
@@ -34,7 +29,7 @@ const WorkDays = ({ value, onChange }) => {
             type="checkbox"
             name="days"
             value={type}
-            checked={days.includes(type)}
+            checked={value.includes(type)}
             onChange={handleDaysChange}
           />
           {type}

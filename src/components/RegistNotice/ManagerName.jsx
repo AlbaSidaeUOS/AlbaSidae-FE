@@ -5,7 +5,7 @@ const ManagerName = ({ value, onChange }) => {
     <S.NoticeInput
       type="text"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange}
       placeholder="이름을 입력해주세요."
     />
   );

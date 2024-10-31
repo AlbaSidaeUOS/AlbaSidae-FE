@@ -4,10 +4,9 @@ const NoticeCompanyName = ({ value, onChange }) => {
   return (
     <S.NoticeInput
       type="text"
-      name="companyName"
       value={value}
-      placeholder="회사명"
       onChange={(e) => onChange(e.target.value)}
+      placeholder="회사명"
     />
   );
 };

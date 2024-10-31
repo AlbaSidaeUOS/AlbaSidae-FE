@@ -5,7 +5,7 @@ const ManagerPhone = ({ value, onChange }) => {
     <S.NoticeInput
       type="text"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange}
       placeholder="핸드폰 번호(- 제외 번호)"
     />
   );

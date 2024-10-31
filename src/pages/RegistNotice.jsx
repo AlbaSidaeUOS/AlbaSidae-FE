@@ -23,27 +23,25 @@ import { AuthContext } from "../components/auth/AuthContext";
 
 const RegistNotice = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, role, user } = useContext(AuthContext);
+  const { isLoggedIn, role } = useContext(AuthContext);
   const [formData, setFormData] = useState({
-    title: "",
-    companyName: "",
-    companyContent: "",
-    companyImage: "",
-    workCategory: "",
-    workType: "",
-    peopleNum: 0,
-    career: "",
+    noticeTitle: "",
+    noticeCompanyName: "",
+    noticeCompanyContent: "",
+    noticeCompanyImage: null,
+    peopleNum: "",
+    workCategory: [],
+    workType: [],
+    noticeCareer: "",
     workTerm: "",
-    workDays: "",
+    workDays: [],
     workTime: "",
-    pay: "",
+    workPay: "",
     gender: "",
     age: "",
     deadline: "",
-    submitMethod: "",
+    submitMethod: [],
   });
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -52,85 +50,18 @@ const RegistNotice = () => {
     } else if (role !== "COMPANY" && role !== "ADMIN") {
       alert("이 페이지에 접근할 권한이 없습니다.");
       navigate("/");
-    } else if (user && user.email) {
-      const fetchUserData = async () => {
-        try {
-          // setLoading(true);
-          const response = await fetch(
-            `https://6153-211-178-236-156.ngrok-free.app/api/users/${user.email}`
-          );
-          const data = await response.json();
-          console.log(data);
-          if (response.ok && data.result) {
-            setUserData(data.data);
-          } else {
-            console.error(
-              "사용자 정보를 가져오는 데 실패했습니다.",
-              data.message
-            );
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        } finally {
-          // setLoading(false);
-        }
-      };
-      fetchUserData();
     }
-  }, [isLoggedIn, role, navigate, user?.email]);
-  // if (loading) {
-  //   return <div>로딩 중...</div>;
-  // }
+  }, [isLoggedIn, role, navigate]);
 
-  const handleChange = (name, value) => {
+  const handleChange = (field) => (value) => {
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [field]: value,
     }));
   };
 
-  const handleSubmit = async () => {
-    if (!userData) {
-      alert("사용자 정보를 불러오고 있습니다. 잠시 후 다시 시도해 주세요.");
-      return;
-    }
-    const requestBody = {
-      ...formData,
-      company: {
-        email: userData?.email,
-        password: "qwerqwer",
-        name: "",
-        birthDate: "",
-        phone: userData.phone,
-        businessNumber: userData?.businessNumber,
-        role: userData.role,
-      },
-    };
-
-    try {
-      const response = await fetch(
-        "https://6153-211-178-236-156.ngrok-free.app/api/job-posts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-          mode: "cors",
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok && data.result === true) {
-        alert(data.message);
-        navigate("/");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("서버 오류가 발생했습니다.");
-    }
+  const handleSubmit = () => {
+    console.log(formData);
   };
 
   return (
@@ -143,32 +74,33 @@ const RegistNotice = () => {
         <S.SubTitleWrapper>
           <S.SubTitle>공고제목</S.SubTitle>
           <NoticeTitle
-            value={formData.title}
-            onChange={(e) => handleChange("title", e.target.value)}
+            value={formData.noticeTitle}
+            onChange={handleChange("noticeTitle")}
           />
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>근무회사</S.SubTitle>
           <NoticeCompanyName
-            value={formData.companyName}
-            onChange={(e) => handleChange("companyName", e.target.value)}
+            value={formData.noticeCompanyName}
+            onChange={handleChange("noticeCompanyName")}
           />
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>주요 사업내용</S.SubTitle>
           <NoticeCompanyContent
-            value={formData.companyContent}
-            onChange={(e) => handleChange("companyContent", e.target.value)}
+            value={formData.noticeCompanyContent}
+            onChange={handleChange("noticeCompanyContent")}
           />
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>근무처 사진</S.SubTitle>
           <NoticeCompanyImage
-            value={formData.companyImage}
-            onChange={(e) => handleChange("companyImage", e.target.value)}
+            value={formData.noticeCompanyImage}
+            onChange={handleChange}
+            name="noticeCompanyImage"
           />
         </S.SubTitleWrapper>
 
@@ -177,7 +109,7 @@ const RegistNotice = () => {
           <S.SubTitle>모집직종</S.SubTitle>
           <WorkCategory
             value={formData.workCategory}
-            onChange={(e) => handleChange("workCategory", e.target.value)}
+            onChange={handleChange("workCategory")}
           />
         </S.SubTitleWrapper>
 
@@ -185,25 +117,25 @@ const RegistNotice = () => {
           <S.SubTitle>고용형태</S.SubTitle>
           <WorkType
             value={formData.workType}
-            onChange={(e) => handleChange("workType", e.target.value)}
+            onChange={handleChange("workType")}
           />
         </S.SubTitleWrapper>
 
-        {/* <S.SubTitleWrapper>
+        <S.SubTitleWrapper>
           <S.SubTitle>모집인원</S.SubTitle>
           <PeopleNum
             value={formData.peopleNum}
-            onChange={(e) => handleChange("peopleNum", e.target.value)}
+            onChange={handleChange("peopleNum")}
           />
-        </S.SubTitleWrapper> */}
+        </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>
             &nbsp;&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;
           </S.SubTitle>
           <NoticeCareer
-            value={formData.career}
-            onChange={(e) => handleChange("career", e.target.value)}
+            value={formData.noticeCareer}
+            onChange={handleChange("noticeCareer")}
           />
         </S.SubTitleWrapper>
 
@@ -212,7 +144,7 @@ const RegistNotice = () => {
           <S.SubTitle>근무기간</S.SubTitle>
           <WorkTerm
             value={formData.workTerm}
-            onChange={(e) => handleChange("workTerm", e.target.value)}
+            onChange={handleChange("workTerm")}
           />
         </S.SubTitleWrapper>
 
@@ -220,7 +152,7 @@ const RegistNotice = () => {
           <S.SubTitle>근무요일</S.SubTitle>
           <WorkDays
             value={formData.workDays}
-            onChange={(e) => handleChange("workDays", e.target.value)}
+            onChange={handleChange("workDays")}
           />
         </S.SubTitleWrapper>
 
@@ -228,7 +160,7 @@ const RegistNotice = () => {
           <S.SubTitle>근무시간</S.SubTitle>
           <WorkTime
             value={formData.workTime}
-            onChange={(e) => handleChange("workTime", e.target.value)}
+            onChange={handleChange("workTime")}
           />
         </S.SubTitleWrapper>
 
@@ -238,25 +170,19 @@ const RegistNotice = () => {
           </S.SubTitle>
           <WorkPay
             value={formData.workPay}
-            onChange={(e) => handleChange("workPay", e.target.value)}
+            onChange={handleChange("workPay")}
           />
         </S.SubTitleWrapper>
 
         <S.Title>자격조건</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>성별</S.SubTitle>
-          <Gender
-            value={formData.gender}
-            onChange={(e) => handleChange("gender", e.target.value)}
-          />
+          <Gender value={formData.gender} onChange={handleChange("gender")} />
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>연령</S.SubTitle>
-          <Age
-            value={formData.age}
-            onChange={(e) => handleChange("age", e.target.value)}
-          />
+          <Age value={formData.age} onChange={handleChange("age")} />
         </S.SubTitleWrapper>
 
         <S.Title>접수내용</S.Title>
@@ -264,7 +190,7 @@ const RegistNotice = () => {
           <S.SubTitle>모집마감일</S.SubTitle>
           <Deadline
             value={formData.deadline}
-            onChange={(e) => handleChange("deadline", e.target.value)}
+            onChange={handleChange("deadline")}
           />
         </S.SubTitleWrapper>
 
@@ -272,7 +198,7 @@ const RegistNotice = () => {
           <S.SubTitle>지원방법</S.SubTitle>
           <SubmitMethod
             value={formData.submitMethod}
-            onChange={(e) => handleChange("submitMethod", e.target.value)}
+            onChange={handleChange("submitMethod")}
           />
         </S.SubTitleWrapper>
 

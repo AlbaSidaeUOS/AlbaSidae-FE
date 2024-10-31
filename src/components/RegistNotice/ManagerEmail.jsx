@@ -5,7 +5,7 @@ const ManagerEmail = ({ value, onChange }) => {
     <S.NoticeInput
       type="email"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange}
       placeholder="이메일을 입력해주세요."
     />
   );

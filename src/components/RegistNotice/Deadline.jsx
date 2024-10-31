@@ -2,21 +2,20 @@ import React from "react";
 import S from "../../uis/RegistUI";
 
 const Deadline = ({ value, onChange }) => {
-  const { selectedDeadline, deadlineDate } = value || {
-    selectedDeadline: "",
-    deadlineDate: "",
-  };
+  const selectedDeadline =
+    value === "상시모집" ? "select" : value ? "immediate" : null;
+  const deadlineDate = value && value !== "상시모집" ? value : "";
 
   const handleSelectDeadline = (deadline) => {
     if (deadline === "select") {
-      onChange({ selectedDeadline: "select", deadlineDate: "" });
+      onChange("상시모집");
     } else {
-      onChange({ selectedDeadline: "immediate", deadlineDate });
+      onChange("immediate");
     }
   };
 
   const handleDateChange = (e) => {
-    onChange({ selectedDeadline: "immediate", deadlineDate: e.target.value });
+    onChange(e.target.value);
   };
 
   return (

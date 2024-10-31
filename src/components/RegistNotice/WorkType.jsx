@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import S from "../../uis/RegistUI";
 
-const WorkType = ({ value, onChange }) => {
+const WorkType = ({ value = [], onChange }) => {
   const workTypeList = ["아르바이트", "계약직", "정규직", "인턴쉽", "프리랜서"];
-  const [workType, setWorkType] = useState(value || []);
 
-  useEffect(() => {
-    onChange(workType);
-  }, [workType, onChange]);
-
-  const handleWorkTypeChange = (e) => {
-    const selectedWorkType = e.target.value;
-    if (workType.includes(selectedWorkType)) {
-      setWorkType(workType.filter((type) => type !== selectedWorkType));
+  const handleWorkTypeChange = (selectedWorkType) => {
+    if (value.includes(selectedWorkType)) {
+      onChange(value.filter((type) => type !== selectedWorkType));
     } else {
-      setWorkType([...workType, selectedWorkType]);
+      onChange([...value, selectedWorkType]);
     }
   };
 
@@ -26,8 +20,8 @@ const WorkType = ({ value, onChange }) => {
             type="checkbox"
             name="workType"
             value={type}
-            checked={workType.includes(type)}
-            onChange={handleWorkTypeChange}
+            checked={value.includes(type)}
+            onChange={() => handleWorkTypeChange(type)}
           />
           {type}
         </S.CheckBoxLabel>
