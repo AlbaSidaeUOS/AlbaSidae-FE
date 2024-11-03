@@ -150,27 +150,6 @@ const FilterButton = styled.button`
     }
 `;
 
-const DropdownButton = styled.select`
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    appearance: none;
-    color: #333;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>') no-repeat right 10px center;
-    background-size: 12px;
-
-    &:hover {
-        border-color: #555;
-    }
-
-    &focus {
-        outline: none;
-        border-color: #007BFF;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-`;
-
 const StyledButton = styled.button`
     padding: 10px;
     border: 1px solid #ccc;
@@ -224,7 +203,7 @@ const JobTableLeft = styled.td`
     border-bottom: 1px solid #ddd;
     text-align: left;
     text-decoration: none;
-    
+
     &:hover {
         text-decoration: deepskyblue;
     }
@@ -301,6 +280,8 @@ const Job = () => {
     const [selectedWorkTerms, setSelectedWorkTerms] = useState([]);
     const [selectedDays, setSelectedDays] = useState([]);
     const [selectedTimes, setSelectedTimes] = useState([]);
+    const [selectedRegions, setSelectedRegions] = useState([]);
+    const [selectedOccupations, setSelectedOccupations] = useState([]);
 
     const workTerms = ['1일', '1주일 이하', '1주일-1개월', '1개월-3개월', '3개월-6개월', '6개월-1년', '1년 이상'];
     const days = ['평일(월,화,수,목,금)', '주말(토,일)', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
@@ -316,6 +297,12 @@ const Job = () => {
         if (type === 'time') {
             setSelectedTimes(toggleSelection(selectedTimes, value));
         }
+        if (type === 'region') {
+            setSelectedRegions(toggleSelection(selectedRegions, value));
+        }
+        if (type === 'occupation') {
+            setSelectedOccupations(toggleSelection(selectedOccupations, value));
+        }
     };
 
     const toggleSelection = (selectedArray, value) => {
@@ -326,13 +313,28 @@ const Job = () => {
         }
     };
 
-    const [region, setRegion] = useState('');
-    const [occupation, setOccupation] = useState('');
+    const [regionCondition, setRegionCondition] = useState(false);
+    const [occupationCondition, setOccupationCondition] = useState(false);
     const [workCondition, setWorkCondition] = useState(false);
 
-    const handleRegionChange = (e) => setRegion(e.target.value);
-    const handleOccupationChange = (e) => setOccupation(e.target.value);
-    const toggleWorkCondition = () => setWorkCondition(!workCondition);
+    const toggleRegionCondition = () => {
+        setRegionCondition(!regionCondition);
+        if (regionCondition) {
+            setSelectedRegions([]);
+        }
+    }
+    const toggleOccupationCondition = () => {
+        setOccupationCondition(!occupationCondition);
+        if (occupationCondition) {
+            setSelectedOccupations([]);
+        }
+    }
+    const toggleWorkCondition = () => {
+        setWorkCondition(!workCondition);
+        if(workCondition) {
+            setSelectedWorkTerms([]);
+        }
+    }
 
     const regions = ['휘경동', '전농동', '이문동', '답십리동', '청량리동'];
     const occupations = ['외식/음료', '유통/판매', '문화/여가/생활', '서비스', '사무/회계', '고객상담/영업/리서치', '생산/건설/노무', 'IT/인터넷', '교육/강사', '디자인', '미디어', '운전/배달', '병원/간호/연구'];
@@ -349,19 +351,45 @@ const Job = () => {
             <FilterContainer>
                 <FilterSection>
                     <FilterGroup>
-                        <DropdownButton value={region} onChange={handleRegionChange}>
-                            <option value="">지역</option>
-                            {regions.map((region, index) => (
-                                <option key={index} value={region}>{region}</option>
-                            ))}
-                        </DropdownButton>
-                        <DropdownButton value={occupation} onChange={handleOccupationChange}>
-                            <option value="">하는일</option>
-                            {occupations.map((occupation, index) => (
-                                <option key={index} value={occupation}>{occupation}</option>
-                            ))}
-                        </DropdownButton>
+                        <StyledButton onClick={toggleRegionCondition}>지역</StyledButton>
+                        <StyledButton onClick={toggleOccupationCondition}>하는일</StyledButton>
                         <StyledButton onClick={toggleWorkCondition}>근무조건</StyledButton>
+                        {regionCondition && (
+                            <FilterBox>
+                                <FilterSection>
+                                    <FilterTitle>지역</FilterTitle>
+                                    <FilterGroup>
+                                        {regions.map((region) => (
+                                            <FilterButton
+                                                key={region}
+                                                active={selectedRegions.includes(region)}
+                                                onClick={() => handleFilterClick('region', region)}
+                                            >
+                                                {region}
+                                            </FilterButton>
+                                        ))}
+                                    </FilterGroup>
+                                </FilterSection>
+                            </FilterBox>
+                        )}
+                        {occupationCondition && (
+                            <FilterBox>
+                                <FilterSection>
+                                    <FilterTitle>하는일</FilterTitle>
+                                    <FilterGroup>
+                                        {occupations.map((occupation) => (
+                                            <FilterButton
+                                                key={occupation}
+                                                active={selectedOccupations.includes(occupation)}
+                                                onClick={() => handleFilterClick('occupation', occupation)}
+                                            >
+                                                {occupation}
+                                            </FilterButton>
+                                        ))}
+                                    </FilterGroup>
+                                </FilterSection>
+                            </FilterBox>
+                        )}
                         {workCondition && (
                             <FilterBox>
                                 <FilterSection>
