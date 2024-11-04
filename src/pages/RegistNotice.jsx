@@ -20,7 +20,7 @@ import WorkTime from "../components/RegistNotice/WorkTime";
 import WorkType from "../components/RegistNotice/WorkType";
 import ResumeProfile from "../components/RegistResume/ResumeProfile";
 import { AuthContext } from "../components/auth/AuthContext";
-import Workplace from "../components/RegistResume/Workplace";
+import Workplace from "../components/RegistNotice/Workplace";
 
 const RegistNotice = () => {
   const navigate = useNavigate();
