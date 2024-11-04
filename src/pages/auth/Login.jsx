@@ -93,7 +93,9 @@ const Login = () => {
         </S.LoginButton>
 
         <S.Bottom>
-          <S.Link to="/signup">회원가입</S.Link>
+          <S.Link to="/signup">
+            &nbsp;&nbsp;&nbsp;&nbsp;회원가입&nbsp;&nbsp;&nbsp;
+          </S.Link>
           <S.Split>|</S.Split>
           <S.Link to="/find-id">아이디 찾기</S.Link>
           <S.Split>|</S.Split>
