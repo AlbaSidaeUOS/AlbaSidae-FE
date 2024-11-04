@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const jobData = [
+export const jobData = [
   {
     id: 0,
     title: "올리브영 롯데백화점잠실점 금토일 마감 MATE 구인",
@@ -11,17 +12,17 @@ const jobData = [
     workCategory: "string",
     workType: "string",
     peopleNum: 0,
-    career: "string",
-    workTerm: "string",
-    workDays: "string",
+    career: "학력무관",
+    workTerm: "3개월 ~ 6개월",
+    workDays: "금,토,일",
     workTime: "16:00 - 22:00",
     wageType: "시급",
     wage: "10,000",
     gender: "string",
     age: "string",
-    deadline: "string",
+    recruitmentPeriod: "2024.10.30(수) ~ 2024.11.03(일)",
     submitMethod: "string",
-    location: "서울 강남구",
+    location: "서울 송파구 올림픽로 240 지하 1층 올리브영",
     posted: "2분 전",
     company: {
       id: 0,
@@ -33,7 +34,7 @@ const jobData = [
   {
     id: 1,
     title: "[경성맥주 아차산점] '주방보조' 모집합니다(급구)",
-    companyName: "달빞 경성맥주 아차산점",
+    companyName: "달빛 경성맥주 아차산점",
     companyContent: "string",
     companyImage: "string",
     workCategory: "string",
@@ -47,7 +48,7 @@ const jobData = [
     wage: "13,000",
     gender: "string",
     age: "string",
-    deadline: "string",
+    recruitmentPeriod: "string",
     submitMethod: "string",
     location: "서울 광진구",
     posted: "2분 전",
@@ -75,7 +76,7 @@ const jobData = [
     wage: "2,150,000",
     gender: "string",
     age: "string",
-    deadline: "string",
+    recruitmentPeriod: "string",
     submitMethod: "string",
     location: "부산 연제구",
     posted: "2분 전",
@@ -88,35 +89,40 @@ const jobData = [
   },
 ];
 
-const Container = styled.div`
+const PageFrame = styled.div`
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1075px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 `;
 
-const Title = styled.h2`
+const PageTitle = styled.h1`
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin: 2rem left 1rem;
 `;
 
 const FilterContainer = styled.div`
-  padding: 1rem;
+  padding: inherit;
   background-color: #ffffff;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const FilterSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   flex-wrap: nowrap;
 `;
 
 const FilterTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #333;
   font-weight: bold;
   margin: 0;
@@ -126,7 +132,7 @@ const FilterTitle = styled.h3`
 const FilterGroup = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.7rem;
   flex-grow: 1;
 `;
 
@@ -144,28 +150,6 @@ const FilterButton = styled.button`
   }
 `;
 
-const StyledSelect = styled.select`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  appearance: none;
-  color: #333;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>')
-    no-repeat right 10px center;
-  background-size: 12px;
-
-  &:hover {
-    border-color: #555;
-  }
-
-  &focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-`;
-
 const StyledButton = styled.button`
   padding: 10px;
   border: 1px solid #ccc;
@@ -180,42 +164,53 @@ const StyledButton = styled.button`
   text-align: left;
 `;
 
-const FilterDetail = styled.div`
-  margin-top: 10px;
-  padding: 10px;
+const FilterBox = styled.div`
+  width: 100%;
+  max-width: 1075px;
+  padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
 `;
 
-const Table = styled.table`
+const JobTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  text-decoration: none;
 `;
 
-const TableHead = styled.thead`
+const JobTableHead = styled.thead`
   font-weight: bold;
 `;
 
-const TableRow = styled.tr`
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const TableHeader = styled.th`
+const JobTableHeader = styled.th`
   padding: 0.75rem;
   text-align: center;
   border-bottom: 1px solid #ddd;
 `;
 
-const TableCellLeft = styled.td`
+const JobTableHeaderRow = styled.tr`
+  padding: 0.75rem;
+`;
+
+const JobTableRow = styled.tr`
+  &:hover {
+    background-color: #fcfdff;
+  }
+`;
+
+const JobTableLeft = styled.td`
   padding: 0.75rem;
   border-bottom: 1px solid #ddd;
   text-align: left;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: deepskyblue;
+  }
 `;
 
-const TableCellCenter = styled.td`
+const JobTableCenter = styled.td`
   padding: 0.75rem;
   border-bottom: 1px solid #ddd;
   text-align: center;
@@ -258,7 +253,7 @@ const Wage = styled.p`
   align-content: center;
 `;
 
-const JobList = () => {
+const Job = () => {
   const [jobs, setJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 20;
@@ -286,6 +281,8 @@ const JobList = () => {
   const [selectedWorkTerms, setSelectedWorkTerms] = useState([]);
   const [selectedDays, setSelectedDays] = useState([]);
   const [selectedTimes, setSelectedTimes] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [selectedOccupations, setSelectedOccupations] = useState([]);
 
   const workTerms = [
     "1일",
@@ -330,6 +327,12 @@ const JobList = () => {
     if (type === "time") {
       setSelectedTimes(toggleSelection(selectedTimes, value));
     }
+    if (type === "region") {
+      setSelectedRegions(toggleSelection(selectedRegions, value));
+    }
+    if (type === "occupation") {
+      setSelectedOccupations(toggleSelection(selectedOccupations, value));
+    }
   };
 
   const toggleSelection = (selectedArray, value) => {
@@ -340,13 +343,28 @@ const JobList = () => {
     }
   };
 
-  const [region, setRegion] = useState("");
-  const [occupation, setOccupation] = useState("");
+  const [regionCondition, setRegionCondition] = useState(false);
+  const [occupationCondition, setOccupationCondition] = useState(false);
   const [workCondition, setWorkCondition] = useState(false);
 
-  const handleRegionChange = (e) => setRegion(e.target.value);
-  const handleOccupationChange = (e) => setOccupation(e.target.value);
-  const toggleWorkCondition = () => setWorkCondition(!workCondition);
+  const toggleRegionCondition = () => {
+    setRegionCondition(!regionCondition);
+    if (regionCondition) {
+      setSelectedRegions([]);
+    }
+  };
+  const toggleOccupationCondition = () => {
+    setOccupationCondition(!occupationCondition);
+    if (occupationCondition) {
+      setSelectedOccupations([]);
+    }
+  };
+  const toggleWorkCondition = () => {
+    setWorkCondition(!workCondition);
+    if (workCondition) {
+      setSelectedWorkTerms([]);
+    }
+  };
 
   const regions = ["휘경동", "전농동", "이문동", "답십리동", "청량리동"];
   const occupations = [
@@ -365,31 +383,63 @@ const JobList = () => {
     "병원/간호/연구",
   ];
 
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/job/${id}`);
+  };
+
   return (
-    <Container>
-      <Title>오늘의 채용정보</Title>
+    <PageFrame>
+      <PageTitle>오늘의 채용정보</PageTitle>
       <FilterContainer>
         <FilterSection>
           <FilterGroup>
-            <StyledSelect value={region} onChange={handleRegionChange}>
-              <option value="">지역</option>
-              {regions.map((region, index) => (
-                <option key={index} value={region}>
-                  {region}
-                </option>
-              ))}
-            </StyledSelect>
-            <StyledSelect value={occupation} onChange={handleOccupationChange}>
-              <option value="">하는일</option>
-              {occupations.map((occupation, index) => (
-                <option key={index} value={occupation}>
-                  {occupation}
-                </option>
-              ))}
-            </StyledSelect>
+            <StyledButton onClick={toggleRegionCondition}>지역</StyledButton>
+            <StyledButton onClick={toggleOccupationCondition}>
+              하는일
+            </StyledButton>
             <StyledButton onClick={toggleWorkCondition}>근무조건</StyledButton>
+            {regionCondition && (
+              <FilterBox>
+                <FilterSection>
+                  <FilterTitle>지역</FilterTitle>
+                  <FilterGroup>
+                    {regions.map((region) => (
+                      <FilterButton
+                        key={region}
+                        active={selectedRegions.includes(region)}
+                        onClick={() => handleFilterClick("region", region)}
+                      >
+                        {region}
+                      </FilterButton>
+                    ))}
+                  </FilterGroup>
+                </FilterSection>
+              </FilterBox>
+            )}
+            {occupationCondition && (
+              <FilterBox>
+                <FilterSection>
+                  <FilterTitle>하는일</FilterTitle>
+                  <FilterGroup>
+                    {occupations.map((occupation) => (
+                      <FilterButton
+                        key={occupation}
+                        active={selectedOccupations.includes(occupation)}
+                        onClick={() =>
+                          handleFilterClick("occupation", occupation)
+                        }
+                      >
+                        {occupation}
+                      </FilterButton>
+                    ))}
+                  </FilterGroup>
+                </FilterSection>
+              </FilterBox>
+            )}
             {workCondition && (
-              <FilterDetail>
+              <FilterBox>
                 <FilterSection>
                   <FilterTitle>근무기간</FilterTitle>
                   <FilterGroup>
@@ -432,41 +482,43 @@ const JobList = () => {
                     ))}
                   </FilterGroup>
                 </FilterSection>
-              </FilterDetail>
+              </FilterBox>
             )}
           </FilterGroup>
         </FilterSection>
       </FilterContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeader>기업명 / 공고제목</TableHeader>
-            <TableHeader>근무지</TableHeader>
-            <TableHeader>근무시간</TableHeader>
-            <TableHeader>급여</TableHeader>
-            <TableHeader>등록일</TableHeader>
-          </TableRow>
-        </TableHead>
+      <JobTable>
+        <JobTableHead>
+          <JobTableHeaderRow>
+            <JobTableHeader>기업명 / 공고제목</JobTableHeader>
+            <JobTableHeader>근무지</JobTableHeader>
+            <JobTableHeader>근무시간</JobTableHeader>
+            <JobTableHeader>급여</JobTableHeader>
+            <JobTableHeader>등록일</JobTableHeader>
+          </JobTableHeaderRow>
+        </JobTableHead>
         <tbody>
           {currentJobs.map((job) => (
-            <TableRow key={job.id}>
-              <TableCellLeft>
+            <JobTableRow key={job.id} onClick={() => handleClick(job.id)}>
+              <JobTableLeft>
                 <CompanyName>{job.companyName}</CompanyName>
                 <JobTitle>{job.title}</JobTitle>
-              </TableCellLeft>
-              <TableCellCenter>{job.location}</TableCellCenter>
-              <TableCellCenter>{job.workTime}</TableCellCenter>
-              <TableCellCenter>
+              </JobTableLeft>
+              <JobTableCenter>
+                {job.location.split(" ")[0] + " " + job.location.split(" ")[1]}
+              </JobTableCenter>
+              <JobTableCenter>{job.workTime}</JobTableCenter>
+              <JobTableCenter>
                 <WageType wageType={job.wageType}>{job.wageType}</WageType>
                 <Wage>{job.wage}</Wage>
-              </TableCellCenter>
-              <TableCellCenter>{job.posted}</TableCellCenter>
-            </TableRow>
+              </JobTableCenter>
+              <JobTableCenter>{job.posted}</JobTableCenter>
+            </JobTableRow>
           ))}
         </tbody>
-      </Table>
-    </Container>
+      </JobTable>
+    </PageFrame>
   );
 };
 
-export default JobList;
+export default Job;
