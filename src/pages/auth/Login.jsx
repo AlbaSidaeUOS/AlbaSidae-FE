@@ -84,6 +84,7 @@ const Login = () => {
             type="password"
             placeholder="비밀번호"
             value={password}
+            maxLength="15"
             onChange={(e) => setPassword(e.target.value)}
           />
         </S.InputWrapper>
