@@ -21,6 +21,7 @@ import WorkType from "../components/RegistNotice/WorkType";
 import ResumeProfile from "../components/RegistResume/ResumeProfile";
 import { AuthContext } from "../components/auth/AuthContext";
 
+// place도 추가
 const RegistNotice = () => {
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(AuthContext);
