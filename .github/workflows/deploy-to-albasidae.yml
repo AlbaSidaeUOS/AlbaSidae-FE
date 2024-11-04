@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout albasidae-fe repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: AlbaSidaeUOS/AlbaSidae-FE
           ref: main
@@ -22,16 +22,16 @@ jobs:
           cp -r ./* ../temp-frontend/
 
       - name: Checkout albasidae repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: AlbaSidaeUOS/AlbaSidae
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: AlbaSidae
+          path: albasidae # 일관된 소문자 경로 사용
 
       - name: Copy files to albasidae/frontend
         run: |
-          rm -rf AlbaSidae/frontend/*
-          cp -r ../temp-frontend/* AlbaSidae/frontend/
+          rm -rf albasidae/frontend/*
+          cp -r ../temp-frontend/* albasidae/frontend/
 
       - name: Commit and push changes to albasidae/frontend
         run: |
