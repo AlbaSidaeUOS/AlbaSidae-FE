@@ -16,6 +16,9 @@ jobs:
           repository: AlbaSidaeUOS/AlbaSidae-FE
           ref: main
 
+      - name: List files in albasidae-fe
+        run: ls -al # albasidae-fe 레포지토리의 디렉토리 구조 확인
+
       - name: Copy code to temporary folder
         run: |
           mkdir -p ../temp-frontend
@@ -26,7 +29,13 @@ jobs:
         with:
           repository: AlbaSidaeUOS/AlbaSidae
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: albasidae # 일관된 소문자 경로 사용
+          path: albasidae # 일관된 경로 사용
+
+      - name: List files in root
+        run: ls -al # 루트 디렉토리의 파일 구조 확인 (albasidae 폴더 확인)
+
+      - name: List files in albasidae folder
+        run: ls -al albasidae # albasidae 디렉토리 구조 확인
 
       - name: Copy files to albasidae/frontend
         run: |
