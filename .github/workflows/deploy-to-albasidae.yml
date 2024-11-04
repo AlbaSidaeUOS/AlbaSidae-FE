@@ -26,12 +26,12 @@ jobs:
         with:
           repository: AlbaSidaeUOS/AlbaSidae
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: albasidae
+          path: AlbaSidae
 
       - name: Copy files to albasidae/frontend
         run: |
-          rm -rf albasidae/frontend/*
-          cp -r ../temp-frontend/* albasidae/frontend/
+          rm -rf AlbaSidae/frontend/*
+          cp -r ../temp-frontend/* AlbaSidae/frontend/
 
       - name: Commit and push changes to albasidae/frontend
         run: |
