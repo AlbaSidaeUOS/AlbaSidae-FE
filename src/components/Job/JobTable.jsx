@@ -12,7 +12,7 @@ const JobTable = ({ jobs, onRowClick }) => (
       </S.JobTableHeaderRow>
     </S.JobTableHead>
     <tbody>
-      {jobs.map((job) => (
+      {jobs && jobs.map((job) => (
         <S.JobTableRow key={job.id} onClick={() => onRowClick(job.id)}>
           <S.JobTableLeft>
             <S.CompanyName>{job.companyName}</S.CompanyName>
