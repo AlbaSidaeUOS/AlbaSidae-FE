@@ -117,7 +117,7 @@ const FilterGroup = ({ onFilterChange }) => {
               <S.FilterSection>
                 <S.FilterTitle>지역</S.FilterTitle>
                 <S.FilterGroup>
-                  {regions.map((region) => (
+                  {regions && regions.map((region) => (
                     <S.FilterButton
                       key={region}
                       active={selectedRegions.includes(region)}
@@ -136,13 +136,12 @@ const FilterGroup = ({ onFilterChange }) => {
               </S.FilterSection>
             </S.FilterBox>
           )}
-
           {occupationCondition && (
             <S.FilterBox>
               <S.FilterSection>
                 <S.FilterTitle>하는일</S.FilterTitle>
                 <S.FilterGroup>
-                  {occupations.map((occupation) => (
+                  {occupations && occupations.map((occupation) => (
                     <S.FilterButton
                       key={occupation}
                       active={selectedOccupations.includes(occupation)}
@@ -167,7 +166,7 @@ const FilterGroup = ({ onFilterChange }) => {
               <S.FilterSection>
                 <S.FilterTitle>근무기간</S.FilterTitle>
                 <S.FilterGroup>
-                  {workTerms.map((term) => (
+                  {workTerms && workTerms.map((term) => (
                     <S.FilterButton
                       key={term}
                       active={selectedWorkTerms.includes(term)}
@@ -187,7 +186,7 @@ const FilterGroup = ({ onFilterChange }) => {
               <S.FilterSection>
                 <S.FilterTitle>근무요일</S.FilterTitle>
                 <S.FilterGroup>
-                  {days.map((day) => (
+                  {days && days.map((day) => (
                     <S.FilterButton
                       key={day}
                       active={selectedDays.includes(day)}
@@ -203,7 +202,7 @@ const FilterGroup = ({ onFilterChange }) => {
               <S.FilterSection>
                 <S.FilterTitle>근무시간</S.FilterTitle>
                 <S.FilterGroup>
-                  {times.map((time) => (
+                  {times && times.map((time) => (
                     <S.FilterButton
                       key={time}
                       active={selectedTimes.includes(time)}
