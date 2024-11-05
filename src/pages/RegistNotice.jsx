@@ -47,7 +47,6 @@ const RegistNotice = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (role !== "COMPANY" && role !== "ADMIN") {
       alert("이 페이지에 접근할 권한이 없습니다.");
@@ -100,7 +99,7 @@ const RegistNotice = () => {
         phone: "", // 필요 시 적절히 수정
         businessNumber: "", // 필요 시 적절히 수정
         image: "", // 필요 시 적절히 수정
-        role: "PERSONAL", // 필요 시 적절히 수정
+        role: "COMPANY", // 필요 시 적절히 수정
       },
     };
 

@@ -83,13 +83,19 @@ const S = {
       opacity: 0.8;
     }
   `,
+  ErrorMessage: styled.div`
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+  `,
 };
-// GET 써서 원래 정보 가져오기
 
 const UserInfoChange = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, email } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     role: "",
     name: "",
@@ -121,13 +127,63 @@ const UserInfoChange = () => {
       [name]: value,
     });
   };
+  const handleGenderChange = (gender) => {
+    setActiveTab(gender);
+    setFormData({
+      ...formData,
+      gender,
+    });
+  };
+  const handleSubmit = async () => {
+    const { name, birthDate, gender, phone } = formData;
+    if (formData.phone.length !== 11) {
+      setErrorMessage("유효한 전화번호를 입력하세요.");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if (!name || !birthDate || !gender || !phone) {
+      setErrorMessage("모든 필드를 입력하세요.");
+      return;
+    }
+  };
 
   useEffect(() => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
       navigate("/login");
+    } else if (email) {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:8080/api/users/${encodeURIComponent(email)}`
+          );
+          const data = await response.json();
+          if (response.ok && data.result) {
+            setFormData({
+              role: data.data.role || "",
+              name: data.data.name || "",
+              birthDate: data.data.birthDate || "",
+              gender: data.data.gender || "",
+              phone: data.data.phone || "",
+              password: "",
+              confirmPassword: "",
+            });
+            if (data.data.gender === "남" || data.data.gender === "여") {
+              setActiveTab(data.data.gender);
+            }
+          } else {
+            console.error("Fail to fetch : ", data.message);
+          }
+        } catch (error) {
+          console.error("Error fetching user data : ", error);
+        }
+      };
+      fetchUserData();
+      console.log(formData);
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, email]);
 
   return (
     <>
@@ -137,28 +193,40 @@ const UserInfoChange = () => {
           <S.Title>필수정보 변경</S.Title>
           <S.InfoRow>
             <S.Label>이메일(변경 불가)</S.Label>
-            <S.Input type="text" readOnly />
+            <S.Input type="text" value={email} readOnly />
           </S.InfoRow>
           <S.InfoRow>
             <S.Label>이름</S.Label>
-            <S.Input type="text" />
+            <S.Input
+              type="text"
+              name="name"
+              placeholder="이름"
+              value={formData.name}
+              onChange={handleChange}
+            />
           </S.InfoRow>
           <S.InfoRow>
             <S.Label>생년월일</S.Label>
-            <S.Input type="text" />
+            <S.Input
+              type="text"
+              name="birthDate"
+              placeholder="생년월일(6자리)"
+              value={formData.birthDate}
+              onChange={handleChange}
+            />
           </S.InfoRow>
           <S.InfoRow>
             <S.Label>성별</S.Label>
             <S.TabWrapper>
               <S.TabLeft
                 active={activeTab === "남"}
-                onClick={() => setActiveTab("남")}
+                onClick={() => handleGenderChange("남")}
               >
                 남
               </S.TabLeft>
               <S.TabRight
                 active={activeTab === "여"}
-                onClick={() => setActiveTab("여")}
+                onClick={() => handleGenderChange("여")}
               >
                 여
               </S.TabRight>
@@ -166,7 +234,13 @@ const UserInfoChange = () => {
           </S.InfoRow>
           <S.InfoRow>
             <S.Label>휴대폰</S.Label>
-            <S.Input type="text" />
+            <S.Input
+              type="text"
+              name="phone"
+              placeholder="휴대폰 번호"
+              value={formData.phone}
+              onChange={handleChange}
+            />
           </S.InfoRow>
           <S.InfoRow>
             <S.Label>비밀번호</S.Label>
@@ -188,7 +262,8 @@ const UserInfoChange = () => {
               onChange={handleChange}
             />
           </S.InfoRow>
-          <S.EditButton>수정완료</S.EditButton>
+          {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          <S.EditButton onClick={handleSubmit}>수정완료</S.EditButton>
         </S.Container>
       </S.Wrapper>
     </>
