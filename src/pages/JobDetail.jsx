@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MOCK_JobData from "../mock/mock-jobData";
 import Header from "../components/Header";
 import S from "../uis/JobUI";
 
@@ -27,7 +26,35 @@ const JobDetailHeader = ({ companyName, title }) => (
 
 function JobDetail() {
   const { id } = useParams();
-  const job = MOCK_JobData.find((job) => job.id === parseInt(id));
+  const [job, setJob] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchJobData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/job-posts/${id}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch job data");
+        }
+        const responseData = await response.json();
+        setJob(responseData.data);
+      } catch (error) {
+        console.error("Fail to fetch: ", error);
+        setErrorMessage("Job data could not be retrieved.");
+      }
+    };
+    fetchJobData();
+  }, [id]);
+
+  if (errorMessage) {
+    return <div>{errorMessage}</div>;
+  }
+
+  if (!job) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -37,8 +64,8 @@ function JobDetail() {
         <S.JobDetailContainer>
           <S.InfoContainerRow>
             <S.InfoColumn>
-              <S.Label>{job.wageType}</S.Label>
-              <S.Content>{job.wage}</S.Content>
+              <S.Label>{job.pay}</S.Label>
+              <S.Content>{job.pay}</S.Content>
             </S.InfoColumn>
             <S.InfoColumn>
               <S.Label>{"기간"}</S.Label>
@@ -55,16 +82,15 @@ function JobDetail() {
           </S.InfoContainerRow>
         </S.JobDetailContainer>
         <InfoContainer title="모집조건">
-          <InfoRow label="모집기간" content={job.recruitmentPeriod} />
+          <InfoRow label="모집기간" content={job.deadline} />
           <InfoRow label="모집인원" content={job.peopleNum} />
-          <InfoRow label="학력" content={job.career} />
         </InfoContainer>
         <InfoContainer title="근무지 정보">
           <InfoRow label="근무지명" content={job.companyName} />
-          <InfoRow label="근무지" content={job.location} />
+          <InfoRow label="근무지" content={job.place} />
         </InfoContainer>
         <InfoContainer title="근무조건">
-          <InfoRow label="급여" content={`${job.wageType} ${job.wage}`} />
+          <InfoRow label="급여" content={`${job.pay} ${job.pay}`} />
           <InfoRow label="근무기간" content={job.workTerm} />
           <InfoRow label="근무시간" content={job.workTime} />
         </InfoContainer>
