@@ -1,16 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import S from "../uis/JobUI";
 import Header from "../components/Header";
 import FilterGroup from "../components/Job/FilterGroup";
-import JobTable from "../components/Job/JobTable";
+import JobPagination from "../components/Job/JobPagination";
 
 const Job = () => {
   const [jobs, setJobs] = useState([]); // 초기 데이터를 저장
   const [filteredJobs, setFilteredJobs] = useState([]); // 필터링된 데이터를 저장
-  const navigate = useNavigate();
-
-  const handleClick = (id) => navigate(`/job/${id}`);
 
   const handleFilterChange = useCallback(
     (filters) => {
@@ -85,7 +81,8 @@ const Job = () => {
       <Header />
       <S.PageFrame>
         <FilterGroup onFilterChange={handleFilterChange} />
-        <JobTable jobs={filteredJobs} onRowClick={handleClick} />
+        {/* <JobTable jobs={filteredJobs} onRowClick={handleClick} /> */}
+        <JobPagination filteredJobs={filteredJobs} />
       </S.PageFrame>
     </>
   );
