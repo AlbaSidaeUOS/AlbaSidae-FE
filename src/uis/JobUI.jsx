@@ -74,6 +74,7 @@ const S = {
     background-size: 12px;
     min-width: 130px;
     text-align: left;
+    cursor: pointer;
   `,
 
   FilterBox: styled.div`
@@ -106,6 +107,7 @@ const S = {
   `,
 
   JobTableRow: styled.tr`
+    cursor: pointer;
     &:hover {
       background-color: #fcfdff;
     }

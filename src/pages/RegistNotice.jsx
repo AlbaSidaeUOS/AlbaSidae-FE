@@ -29,7 +29,7 @@ const RegistNotice = () => {
     noticeTitle: "",
     noticeCompanyName: "",
     noticeCompanyContent: "",
-    noticeCompanyImage: "test",
+    noticeCompanyImage: "",
     peopleNum: 0,
     workCategory: [],
     workType: [],
@@ -63,19 +63,26 @@ const RegistNotice = () => {
 
   const handleSubmit = async () => {
     const emptyFields = Object.entries(formData).filter(
-      ([key, value]) => value === "" || value.length === 0
+      ([key, value]) =>
+        key !== "noticeCompanyImage" &&
+        (value === "" ||
+          value === null ||
+          (Array.isArray(value) && value.length === 0) ||
+          (key === "noticeCompanyImage" && typeof value !== "object"))
     );
     if (emptyFields.length > 0) {
       const missingFields = emptyFields.map(([key]) => key).join(", ");
       alert(`다음 필드를 입력해주세요: ${missingFields}`);
       return;
     }
-    const requestBody = {
-      id: 0,
+    const formDataToSend = new FormData();
+    if (formData.noticeCompanyImage instanceof File) {
+      formDataToSend.append("companyImage", formData.noticeCompanyImage);
+    }
+    const jobPostData = {
       title: formData.noticeTitle,
       companyName: formData.noticeCompanyName,
       companyContent: formData.noticeCompanyContent,
-      companyImage: formData.noticeCompanyImage,
       place: formData.place,
       workCategory: formData.workCategory,
       workType: formData.workType,
@@ -89,31 +96,24 @@ const RegistNotice = () => {
       age: formData.age,
       deadline: formData.deadline,
       submitMethod: formData.submitMethod,
-      company: {
-        id: 0,
-        email: "",
-        password: "", // 필요 시 적절히 수정
-        name: "", // 필요 시 적절히 수정
-        birthDate: "", // 필요 시 적절히 수정
-        gender: "", // 필요 시 적절히 수정
-        phone: "", // 필요 시 적절히 수정
-        businessNumber: "", // 필요 시 적절히 수정
-        image: "", // 필요 시 적절히 수정
-        role: "COMPANY", // 필요 시 적절히 수정
-      },
     };
+    formDataToSend.append(
+      "jobPost",
+      new Blob([JSON.stringify(jobPostData)], { type: "application/json" })
+    );
 
     try {
+      for (let [key, value] of formDataToSend.entries()) {
+        console.log(key, value);
+      }
+      console.log(formDataToSend);
       const response = await fetch(
         `http://localhost:8080/api/job-posts?email=${encodeURIComponent(
           email
         )}`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
+          body: formDataToSend,
           mode: "cors",
         }
       );
@@ -128,7 +128,6 @@ const RegistNotice = () => {
       console.error("Error:", error);
       alert("서버 오류가 발생했습니다.");
     }
-    console.log(formData);
   };
 
   return (

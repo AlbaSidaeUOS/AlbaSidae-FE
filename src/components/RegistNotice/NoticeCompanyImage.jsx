@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import S from "../../uis/RegistUI";
 
 const NoticeCompanyImage = ({ value, onChange }) => {
+  const [previewUrl, setPreviewUrl] = React.useState(null);
+
+  useEffect(() => {
+    if (value) {
+      const objectUrl = URL.createObjectURL(value);
+      setPreviewUrl(objectUrl);
+
+      return () => {
+        URL.revokeObjectURL(objectUrl);
+      };
+    }
+  }, [value]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      onChange(imageUrl);
+      onChange(file);
     }
   };
 
@@ -15,9 +27,9 @@ const NoticeCompanyImage = ({ value, onChange }) => {
       <S.InputWrapper>
         <input type="file" accept="image/*" onChange={handleImageChange} />
       </S.InputWrapper>
-      {value && (
+      {previewUrl && (
         <S.ImagePreview>
-          <img src={value} alt="Company" style={{ width: "100%" }} />
+          <img src={previewUrl} alt="Company" style={{ width: "100%" }} />
         </S.ImagePreview>
       )}
     </S.ImageContainer>
