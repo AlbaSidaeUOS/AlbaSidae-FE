@@ -63,12 +63,7 @@ const RegistNotice = () => {
 
   const handleSubmit = async () => {
     const emptyFields = Object.entries(formData).filter(
-      ([key, value]) =>
-        key !== "noticeCompanyImage" &&
-        (value === "" ||
-          value === null ||
-          (Array.isArray(value) && value.length === 0) ||
-          (key === "noticeCompanyImage" && typeof value !== "object"))
+      ([key, value]) => value === "" || value.length === 0
     );
     if (emptyFields.length > 0) {
       const missingFields = emptyFields.map(([key]) => key).join(", ");
@@ -113,6 +108,9 @@ const RegistNotice = () => {
         )}`,
         {
           method: "POST",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
           body: formDataToSend,
           mode: "cors",
         }
@@ -128,6 +126,7 @@ const RegistNotice = () => {
       console.error("Error:", error);
       alert("서버 오류가 발생했습니다.");
     }
+    console.log(formData);
   };
 
   return (
@@ -168,8 +167,7 @@ const RegistNotice = () => {
           <S.SubTitle>근무처 사진</S.SubTitle>
           <NoticeCompanyImage
             value={formData.noticeCompanyImage}
-            onChange={handleChange}
-            name="noticeCompanyImage"
+            onChange={handleChange("noticeCompanyImage")}
           />
         </S.SubTitleWrapper>
 
