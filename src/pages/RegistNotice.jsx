@@ -25,6 +25,7 @@ import { AuthContext } from "../components/auth/AuthContext";
 const RegistNotice = () => {
   const navigate = useNavigate();
   const { isLoggedIn, role, email } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     noticeTitle: "",
     noticeCompanyName: "",
@@ -59,6 +60,7 @@ const RegistNotice = () => {
       ...prevData,
       [field]: value,
     }));
+    setErrorMessage("");
   };
 
   const handleSubmit = async () => {
@@ -66,14 +68,14 @@ const RegistNotice = () => {
       ([key, value]) => value === "" || value.length === 0
     );
     if (emptyFields.length > 0) {
-      const missingFields = emptyFields.map(([key]) => key).join(", ");
-      alert(`다음 필드를 입력해주세요: ${missingFields}`);
+      setErrorMessage("모든 필드를 입력해주세요.");
+      // const missingFields = emptyFields.map(([key]) => key).join(", ");
+      // alert(`다음 필드를 입력해주세요: ${missingFields}`);
       return;
     }
     const formDataToSend = new FormData();
-    if (formData.noticeCompanyImage instanceof File) {
-      formDataToSend.append("companyImage", formData.noticeCompanyImage);
-    }
+    formDataToSend.append("companyImage", formData.noticeCompanyImage);
+
     const jobPostData = {
       title: formData.noticeTitle,
       companyName: formData.noticeCompanyName,
@@ -98,19 +100,12 @@ const RegistNotice = () => {
     );
 
     try {
-      for (let [key, value] of formDataToSend.entries()) {
-        console.log(key, value);
-      }
-      console.log(formDataToSend);
       const response = await fetch(
         `http://localhost:8080/api/job-posts?email=${encodeURIComponent(
           email
         )}`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
           body: formDataToSend,
           mode: "cors",
         }
@@ -134,139 +129,199 @@ const RegistNotice = () => {
       <HeaderRegist />
       <S.MainContainer>
         <S.Title>담당자 정보</S.Title>
-        <ResumeProfile />
+        <S.ComponentWrapper>
+          <ResumeProfile />
+        </S.ComponentWrapper>
         <S.Title>근무처 정보</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>공고제목</S.SubTitle>
-          <NoticeTitle
-            value={formData.noticeTitle}
-            onChange={handleChange("noticeTitle")}
-          />
+          <S.ComponentWrapper>
+            <NoticeTitle
+              value={formData.noticeTitle}
+              onChange={handleChange("noticeTitle")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>근무회사</S.SubTitle>
-          <NoticeCompanyName
-            value={formData.noticeCompanyName}
-            onChange={handleChange("noticeCompanyName")}
-          />
+          <S.ComponentWrapper>
+            <NoticeCompanyName
+              value={formData.noticeCompanyName}
+              onChange={handleChange("noticeCompanyName")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>주요 사업내용</S.SubTitle>
-          <NoticeCompanyContent
-            value={formData.noticeCompanyContent}
-            onChange={handleChange("noticeCompanyContent")}
-          />
+          <S.ComponentWrapper>
+            <NoticeCompanyContent
+              value={formData.noticeCompanyContent}
+              onChange={handleChange("noticeCompanyContent")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
         <S.SubTitleWrapper>
           <S.SubTitle>근무 장소</S.SubTitle>
-          <Workplace value={formData.place} onChange={handleChange("place")} />
+          <S.ComponentWrapper>
+            <Workplace
+              value={formData.place}
+              onChange={handleChange("place")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
         <S.SubTitleWrapper>
           <S.SubTitle>근무처 사진</S.SubTitle>
-          <NoticeCompanyImage
-            value={formData.noticeCompanyImage}
-            onChange={handleChange("noticeCompanyImage")}
-          />
+          <S.ComponentWrapper>
+            <NoticeCompanyImage
+              value={formData.noticeCompanyImage}
+              onChange={handleChange("noticeCompanyImage")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.Title>모집 내용</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>모집직종</S.SubTitle>
-          <WorkCategory
-            value={formData.workCategory}
-            onChange={handleChange("workCategory")}
-          />
+          <S.ComponentWrapper>
+            <WorkCategory
+              value={formData.workCategory}
+              onChange={handleChange("workCategory")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>고용형태</S.SubTitle>
-          <WorkType
-            value={formData.workType}
-            onChange={handleChange("workType")}
-          />
+          <S.ComponentWrapper>
+            <WorkType
+              value={formData.workType}
+              onChange={handleChange("workType")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>모집인원</S.SubTitle>
-          <PeopleNum
-            value={formData.peopleNum}
-            onChange={handleChange("peopleNum")}
-          />
+          <S.ComponentWrapper>
+            <PeopleNum
+              value={formData.peopleNum}
+              onChange={handleChange("peopleNum")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>
             &nbsp;&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;
           </S.SubTitle>
-          <NoticeCareer
-            value={formData.noticeCareer}
-            onChange={handleChange("noticeCareer")}
-          />
+          <S.ComponentWrapper>
+            <NoticeCareer
+              value={formData.noticeCareer}
+              onChange={handleChange("noticeCareer")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.Title>근무조건</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>근무기간</S.SubTitle>
-          <WorkTerm
-            value={formData.workTerm}
-            onChange={handleChange("workTerm")}
-          />
+          <S.ComponentWrapper>
+            <WorkTerm
+              value={formData.workTerm}
+              onChange={handleChange("workTerm")}
+            />
+            {errorMessage && (
+              <S.ErrorMessage style={{ marginLeft: "75px" }}>
+                {errorMessage}
+              </S.ErrorMessage>
+            )}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>근무요일</S.SubTitle>
-          <WorkDays
-            value={formData.workDays}
-            onChange={handleChange("workDays")}
-          />
+          <S.ComponentWrapper>
+            <WorkDays
+              value={formData.workDays}
+              onChange={handleChange("workDays")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>근무시간</S.SubTitle>
-          <WorkTime
-            value={formData.workTime}
-            onChange={handleChange("workTime")}
-          />
+          <S.ComponentWrapper>
+            <WorkTime
+              value={formData.workTime}
+              onChange={handleChange("workTime")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>
             &nbsp;&nbsp;&nbsp;급여&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </S.SubTitle>
-          <WorkPay
-            value={formData.workPay}
-            onChange={handleChange("workPay")}
-          />
+          <S.ComponentWrapper>
+            <WorkPay
+              value={formData.workPay}
+              onChange={handleChange("workPay")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.Title>자격조건</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>성별</S.SubTitle>
-          <Gender value={formData.gender} onChange={handleChange("gender")} />
+          <S.ComponentWrapper>
+            <Gender value={formData.gender} onChange={handleChange("gender")} />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>연령</S.SubTitle>
-          <Age value={formData.age} onChange={handleChange("age")} />
+          <S.ComponentWrapper>
+            <Age value={formData.age} onChange={handleChange("age")} />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.Title>접수내용</S.Title>
         <S.SubTitleWrapper>
           <S.SubTitle>모집마감일</S.SubTitle>
-          <Deadline
-            value={formData.deadline}
-            onChange={handleChange("deadline")}
-          />
+          <S.ComponentWrapper>
+            <Deadline
+              value={formData.deadline}
+              onChange={handleChange("deadline")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
           <S.SubTitle>지원방법</S.SubTitle>
-          <SubmitMethod
-            value={formData.submitMethod}
-            onChange={handleChange("submitMethod")}
-          />
+          <S.ComponentWrapper>
+            <SubmitMethod
+              value={formData.submitMethod}
+              onChange={handleChange("submitMethod")}
+            />
+            {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+          </S.ComponentWrapper>
         </S.SubTitleWrapper>
 
         <S.SubmitButton onClick={handleSubmit}>공고 작성 완료</S.SubmitButton>

@@ -275,6 +275,10 @@ const S = {
       color: #aaa;
     }
   `,
+  CompanyImage: styled.img`
+    width: 200px;
+    height: 200px;
+  `,
 };
 
 export default S;
