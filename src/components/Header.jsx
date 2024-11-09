@@ -230,7 +230,7 @@ const Header = () => {
               <S.Link to="/resume">인재정보</S.Link>
             </li>
             <li>
-              <S.Link to="/userinfochange">회원정보</S.Link>
+              <S.Link to="/profile">회원정보</S.Link>
             </li>
           </ul>
         </S.Nav>
