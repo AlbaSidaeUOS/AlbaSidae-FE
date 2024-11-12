@@ -243,9 +243,7 @@ const RegistNotice = () => {
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
-          <S.SubTitle>
-            &nbsp;&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;
-          </S.SubTitle>
+          <S.SubTitle>경력</S.SubTitle>
           <S.ComponentWrapper>
             <NoticeCareer
               value={formData.noticeCareer}
@@ -300,9 +298,7 @@ const RegistNotice = () => {
         </S.SubTitleWrapper>
 
         <S.SubTitleWrapper>
-          <S.SubTitle>
-            &nbsp;&nbsp;&nbsp;급여&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </S.SubTitle>
+          <S.SubTitle>급여</S.SubTitle>
           <S.ComponentWrapper>
             <WorkPay
               value={formData.workPay}
