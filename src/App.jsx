@@ -20,7 +20,8 @@ import FindPassword from "./pages/auth/FindPassword";
 import UserInfoChange from "./pages/UserInfoChange";
 import JobDetail from "./pages/JobDetail";
 import EditJob from "./pages/EditJob";
-import Profile from "./pages/Profile";
+import PersonalProfile from "./pages/PersonalProfile";
+import CompanyProfile from "./pages/CompanyProfile";
 
 function App() {
   const location = useLocation();
@@ -43,7 +44,8 @@ function App() {
         <Route path="/find-id" element={<FindID />} />
         <Route path="/find-password" element={<FindPassword />} />
         <Route path="/userinfochange" element={<UserInfoChange />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/personal" element={<PersonalProfile />} />
+        <Route path="/profile/company" element={<CompanyProfile />} />
       </Routes>
     </div>
   );

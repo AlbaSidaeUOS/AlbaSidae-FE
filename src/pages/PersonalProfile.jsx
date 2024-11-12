@@ -6,14 +6,17 @@ import UserInfo from "../components/Profile/UserInfo";
 import TimeTable from "../components/Profile/TimeTable";
 import { AuthContext } from "../components/auth/AuthContext";
 
-const Profile = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+const PersonalProfile = () => {
+  const { isLoggedIn, role } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
+    } else if (role !== "PERSONAL" && role !== "ADMIN") {
+      alert("이 페이지에 접근할 권한이 없습니다.");
+      navigate("/");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, role, navigate]);
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -90,4 +93,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default PersonalProfile;

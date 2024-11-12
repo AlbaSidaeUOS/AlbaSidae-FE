@@ -178,6 +178,7 @@ const S = {
     height: 50px;
   `,
   ImageWrapper: styled.div`
+    margin-bottom: 10px;
     width: 110px;
     height: 110px;
     border-radius: 50%;
