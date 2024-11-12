@@ -15,6 +15,10 @@ const Profile = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <>
       <Header />
@@ -28,23 +32,22 @@ const Profile = () => {
 
               <S.ContentWrapper>
                 <S.ContentLeft>
-                  <S.ContentContainer>
+                  <S.ContentContainer onClick={() => handleNavigate("/job")}>
                     <S.AlgorithmIcon />
                     맞춤알바
                   </S.ContentContainer>
-                  <S.ContentContainer>
+                  <S.ContentContainer onClick={() => handleNavigate("/")}>
                     <S.PaperPlaneIcon />
                     입사지원현황
                   </S.ContentContainer>
                 </S.ContentLeft>
                 <S.ContentRight>
-                  <S.ContentContainer>
+                  <S.ContentContainer onClick={() => handleNavigate("/resume")}>
                     <S.GlassesIcon />
                     이력서열람
                   </S.ContentContainer>
                   <S.ContentContainer>
-                    <S.ResumeContainer />
-                    ???
+                    <S.UOSLogo />
                   </S.ContentContainer>
                 </S.ContentRight>
               </S.ContentWrapper>
