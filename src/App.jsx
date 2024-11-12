@@ -19,6 +19,7 @@ import FindID from "./pages/auth/FindID";
 import FindPassword from "./pages/auth/FindPassword";
 import UserInfoChange from "./pages/UserInfoChange";
 import JobDetail from "./pages/JobDetail";
+import EditJob from "./pages/EditJob";
 import Profile from "./pages/Profile";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/signup/company" element={<CompanySignUp />} />
         <Route path="/job" element={<Job />} />
         <Route path="/job/:id" element={<JobDetail />} />
+        <Route path="/editjob/:id" element={<EditJob />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/registresume" element={<RegistResume />} />
         <Route path="/registnotice" element={<RegistNotice />} />
