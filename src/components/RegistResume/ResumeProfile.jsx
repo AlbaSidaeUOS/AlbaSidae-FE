@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import mockData from "../../mock/mock-profile";
+import mockData from "../../mock/mock-resume";
 import S from "../../uis/RegistUI";
 import { AuthContext } from "../auth/AuthContext";
 
