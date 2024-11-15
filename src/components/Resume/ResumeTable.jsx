@@ -13,18 +13,18 @@ const ResumeTable = ({resumes, onRowClick}) => (
         {resumes && resumes.map((resume) => (
             <S.ResumeTableRow key={resume.id} onClick={() => onRowClick(resume.id)}>
                 <S.ResumeTableCenter>
-                    <S.ResumeImage imageUrl={resume.picture} />
+                    <S.ResumeImage imageUrl={resume.image} />
                     <S.ResumeNameGenderAge>
-                        {resume.name + "(" + resume.gender + "," + resume.age + "세)"}
+                        {resume.user.name + "(" + resume.user.gender + "," + resume.user.age + "세)"}
                     </S.ResumeNameGenderAge>
                     <S.ResumeCareer>{resume.career}</S.ResumeCareer>
                 </S.ResumeTableCenter>
                 <S.ResumeTableLeft>
-                    <S.ResumeTitle>{resume.title}</S.ResumeTitle>
-                    <S.ResumeSummary>{resume.summary}</S.ResumeSummary>
+                    <S.ResumeTitle>{resume.resumeTitle}</S.ResumeTitle>
+                    <S.ResumeSummary>{resume.employmentTypes}</S.ResumeSummary>
                 </S.ResumeTableLeft>
                 <S.ResumeTableCenter>
-                    <S.DesiredLocation>{resume.desiredLocation}</S.DesiredLocation>
+                    <S.DesiredLocation>{resume.preferredWorkLocation}</S.DesiredLocation>
                 </S.ResumeTableCenter>
             </S.ResumeTableRow>
         ))}
