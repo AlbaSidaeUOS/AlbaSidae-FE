@@ -1,11 +1,18 @@
 import React from "react";
+import S from "../uis/ResumeUI"
+import Header from "../components/Header";
+import ResumePagination from "./ResumePagination";
+import MOCK_RESUME from "../mock/mock-resume";
 
 const Resume = () => {
-  return (
-    <div>
-      <h1>인재정보 페이지</h1>
-    </div>
-  );
+    return (
+        <>
+            <Header/>
+            <S.PageFrame>
+               <ResumePagination resumes={MOCK_RESUME}/>
+            </S.PageFrame>
+        </>
+    );
 };
 
 export default Resume;
