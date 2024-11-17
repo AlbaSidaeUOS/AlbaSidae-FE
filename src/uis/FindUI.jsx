@@ -17,7 +17,12 @@ const S = {
     border-bottom: 1px solid #ddd;
     padding: 15px 0 15px 0;
   `,
-  InputWrapper: styled.div``,
+  Subtitle: styled.div`
+    font-size: 17px;
+    font-weight: bold;
+    text-align: start;
+    padding-bottom: 10px;
+  `,
   Input: styled.input`
     width: 96.5%;
     font-size: 16px;
@@ -27,7 +32,7 @@ const S = {
     padding: 15px 0px 15px 15px;
     outline: none;
   `,
-  DoubleWrapper: styled.div`
+  MultiWrapper: styled.div`
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
@@ -46,76 +51,35 @@ const S = {
   InputSecond: styled.input`
     width: 95%;
     border: none;
-    padding: 15px 0px 15px 5px;
     font-size: 16px;
     outline: none;
+    padding: 15px 0px 15px 5px;
   `,
   Button: styled.button`
     width: 100%;
     padding: 15px;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 10px;
     font-weight: bold;
-    background-color: #fdf25d;
-    border: 1px solid #fae04b;
+    color: ${({ activeTab }) => (activeTab === "personal" ? "black" : "white")};
+    background-color: ${({ activeTab }) =>
+      activeTab === "personal" ? "#fdf25d" : "#5194f6"};
+    border: 1px solid
+      ${({ activeTab }) => (activeTab === "personal" ? "#fae04b" : "#2f6df6")};
     margin-bottom: 20px;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
-    }
-  `,
-  CompanyButton: styled.button`
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    border-radius: 10px;
-    font-weight: bold;
-    background-color: #5194f6;
-    border: 1px solid #2f6df6;
-    margin-bottom: 20px;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  `,
-  InputButton: styled.div`
-    position: relative;
-  `,
-  Certify: styled.div`
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 20px 280px 20px 10px;
-    outline: none;
-    box-sizing: border-box;
-    align-items: center;
-  `,
-  CertifyButton: styled.button`
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    background-color: white;
-    color: #2f6df6;
-    padding: 8px 15px 8px 15px;
-    border-radius: 7px;
-    border: 1px solid #2f6df6;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.7;
     }
   `,
   TabWrapper: styled.div`
-    width: 100%;
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   `,
   TabLeft: styled.div`
-    text-align: center;
     flex: 1;
-    padding: 10px 50px 10px 50px;
+    text-align: center;
+    padding: 10px;
     cursor: pointer;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -124,9 +88,9 @@ const S = {
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
   TabRight: styled.div`
-    text-align: center;
     flex: 1;
-    padding: 10px 50px 10px 50px;
+    text-align: center;
+    padding: 10px;
     cursor: pointer;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -135,9 +99,32 @@ const S = {
     background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
     font-weight: ${({ active }) => (active ? "bold" : "normal")};
   `,
+  //   RadioWrapper: styled.div`
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     border: 1px solid #ddd;
+  //     border-radius: 10px;
+  //     margin-bottom: 10px;
+  //     background-color: #f7f7f7;
+  //     padding: 15px;
+  //   `,
+  //   RadioLabel: styled.label`
+  //     margin: 0 20px;
+  //     font-size: 16px;
+  //   `,
+  //   RadioInput: styled.input`
+  //     margin-right: 5px;
+  //   `,
   ErrorMessage: styled.div`
     color: red;
     font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+  `,
+  SuccessMessage: styled.div`
+    color: green;
+    font-size: 16px;
     text-align: center;
     padding-bottom: 20px;
   `,

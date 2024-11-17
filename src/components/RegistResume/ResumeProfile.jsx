@@ -7,7 +7,7 @@ import { AuthContext } from "../auth/AuthContext";
 const ResumeProfile = () => {
   const navigate = useNavigate();
   const profile = mockData[0];
-  const { isLoggedIn, role, email } = useContext(AuthContext);
+  const { isLoggedIn, email, role } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [age, setAge] = useState(null);
 
@@ -53,7 +53,7 @@ const ResumeProfile = () => {
       };
       fetchUserData();
     }
-  }, [isLoggedIn, role, navigate, email]);
+  }, [isLoggedIn, navigate, email]);
 
   return (
     <S.ProfileContainer>
@@ -64,9 +64,10 @@ const ResumeProfile = () => {
       <S.ProfileInfo>
         <S.InfoRow>
           <S.Name>{userData?.name}</S.Name>
-          <S.InfoValue>{userData?.gender}</S.InfoValue>
+          {role === "PERSONAL" && (
+            <S.InfoValue>({userData?.gender})</S.InfoValue>
+          )}
           <S.InfoValue>{age !== null ? `${age + 1}세` : ""}</S.InfoValue>
-
           <S.Link to="/userinfochange" className="link">
             <S.EditButton>회원정보 수정</S.EditButton>
           </S.Link>
@@ -80,14 +81,6 @@ const ResumeProfile = () => {
           <S.InfoLabel>이메일</S.InfoLabel>
           <S.InfoValue>{userData?.email}</S.InfoValue>
         </S.InfoRow>
-        {/* <S.InfoRow>
-          <S.InfoLabel>주소</S.InfoLabel>
-          <S.InfoValue>
-            &nbsp; &nbsp;
-            {profile.address.city} {profile.address.district}{" "}
-            {profile.address.street} {profile.address.num}
-          </S.InfoValue>
-        </S.InfoRow> */}
       </S.ProfileInfo>
     </S.ProfileContainer>
   );

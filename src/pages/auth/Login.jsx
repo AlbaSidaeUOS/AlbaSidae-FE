@@ -8,6 +8,7 @@ const Login = () => {
   const [activeTab, setActiveTab] = useState("personal");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
@@ -34,16 +35,20 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok && data.result === true) {
-        alert(data.message);
         login(data.data.token, role, email);
         navigate("/");
       } else {
-        console.error("서버 응답:", data);
-        alert(data.message);
+        setErrorMessage(data.message);
       }
     } catch (error) {
       console.error("Error:", error);
       alert("서버 오류가 발생했습니다.");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
     }
   };
 
@@ -80,21 +85,26 @@ const Login = () => {
             placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <S.Input
             type="password"
             placeholder="비밀번호"
             value={password}
+            maxLength="15"
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
         </S.InputWrapper>
-
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.LoginButton activeTab={activeTab} onClick={handleLogin}>
           로그인
         </S.LoginButton>
 
         <S.Bottom>
-          <S.Link to="/signup">회원가입</S.Link>
+          <S.Link to="/signup">
+            &nbsp;&nbsp;&nbsp;&nbsp;회원가입&nbsp;&nbsp;&nbsp;
+          </S.Link>
           <S.Split>|</S.Split>
           <S.Link to="/find-id">아이디 찾기</S.Link>
           <S.Split>|</S.Split>

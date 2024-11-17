@@ -19,6 +19,7 @@ const S = {
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
+    margin-left: 30px;
   `,
   InfoRow: styled.div`
     display: flex;
@@ -60,24 +61,25 @@ const S = {
   `,
   ResumeTitle: styled.input`
     padding: 10px;
-    width: 97.3%;
-    margin: 20px 0 20px 0;
+    width: 90%;
+    margin: 20px 0 0px 20px;
     outline: none;
     border: 1px solid #ddd;
     border-radius: 10px;
   `,
+
   ResumeContent: styled.input`
     padding: 10px 10px 80px 10px;
-    width: 97.3%;
-    margin: 20px 0 20px 0;
+    width: 90%;
+    margin: 20px 0 0 20px;
     outline: none;
     border: 1px solid #ddd;
     border-radius: 10px;
   `,
   CareerContent: styled.input`
     padding: 10px 10px 80px 10px;
-    width: 97.3%;
-    margin: 20px 0 20px 0;
+    width: 90%;
+    margin: 20px 0 0 20px;
     outline: none;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -87,30 +89,32 @@ const S = {
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid #eee;
+    justify-content: flex-start;
   `,
   SubTitle: styled.div`
+    flex: 0.8;
     font-size: 16px;
     font-weight: bold;
     white-space: nowrap;
   `,
   EducationSelect: styled.select`
-    margin-left: 20px;
-    padding: 10px;
+    padding: 7px 10px 7px 10px;
     font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     cursor: pointer;
+    margin-left: 20px;
   `,
   TabWrapper: styled.div`
     display: flex;
     flex-wrap: wrap;
     min-width: 1000px;
-    margin-left: 33px;
+    margin-left: 75px;
   `,
   TabLeft: styled.div`
     text-align: center;
-    padding: 7px 50px 7px 50px;
+    padding: 12px 50px 12px 50px;
     cursor: pointer;
     font-size: 13px;
     border: 1px solid #ddd;
@@ -120,7 +124,7 @@ const S = {
   `,
   TabMiddle: styled.div`
     text-align: center;
-    padding: 7px 50px 7px 50px;
+    padding: 12px 50px 12px 50px;
     cursor: pointer;
     font-size: 13px;
     border: 1px solid #ddd;
@@ -130,7 +134,7 @@ const S = {
   `,
   TabRight: styled.div`
     text-align: center;
-    padding: 7px 50px 7px 50px;
+    padding: 12px 50px 12px 50px;
     cursor: pointer;
     font-size: 13px;
     border: 1px solid #ddd;
@@ -143,7 +147,7 @@ const S = {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
-    margin-left: 20px;
+    margin-left: 5px;
     padding: 10px;
   `,
   CheckBoxLabel: styled.label`
@@ -169,23 +173,28 @@ const S = {
     }
   `,
   Button: styled.button`
-    padding: 5px 20px;
+    padding: 13px 23px;
     font-size: 16px;
-    margin: 0 10px;
-    border: 1px solid ${(props) => (props.isSelected ? "#2f6df6" : "#ccc")};
+    margin: 0 10px 0 0;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: ${(props) => (props.isSelected ? "#5194f6" : "#fff")};
+    background-color: ${(props) => (props.isSelected ? "#004094" : "#fff")};
     color: ${(props) => (props.isSelected ? "#fff" : "#000")};
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all ease 0.3s;
     &:hover {
-      background-color: #5194f6;
+      background-color: #004094;
       color: #fff;
-      border-color: #2f6df6;
+      border: 1px solid #004094;
     }
   `,
-  InputWrapper: styled.div``,
-  ImagePreview: styled.div``,
+  InputWrapper: styled.div`
+    width: 10px;
+    height: 10px;
+  `,
+  ImagePreview: styled.div`
+    margin-top: 25px;
+  `,
   DirectInput: styled.input`
     margin-left: 9px;
     padding: 10px;
@@ -195,7 +204,7 @@ const S = {
     outline: none;
   `,
   ImageContainer: styled.div`
-    margin: 10px 0px 10px 20px;
+    margin: 10px 0px 0px 23px;
   `,
   NoticeInput: styled.input`
     padding: 10px;
@@ -230,6 +239,20 @@ const S = {
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 10px;
+  `,
+  ErrorMessage: styled.div`
+    color: red;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-left: 20px;
+  `,
+  ComponentWrapper: styled.div`
+    flex: 5.4;
+    width: 100%;
+    margin: 10px;
+  `,
+  PayContainer: styled.div`
+    margin-left: 10px;
   `,
 };
 

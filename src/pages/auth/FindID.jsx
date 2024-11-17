@@ -1,128 +1,91 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 import HeaderSignUp from "../../components/auth/HeaderSignUp";
-
-const S = {
-  Wrapper: styled.div``,
-  Container: styled.div`
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 10px 40px 10px 40px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  `,
-  Title: styled.div`
-    font-size: 27px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0 15px 0;
-  `,
-  Subtitle: styled.div`
-    font-size: 17px;
-    font-weight: bold;
-    text-align: start;
-    padding-bottom: 10px;
-  `,
-  Input: styled.input`
-    width: 96.5%;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 15px 0px 15px 15px;
-    outline: none;
-  `,
-  MultiWrapper: styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    align-items: center;
-  `,
-  InputFirst: styled.input`
-    width: 95%;
-    border: none;
-    padding: 15px 0px 15px 5px;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
-    outline: none;
-  `,
-  InputSecond: styled.input`
-    width: 95%;
-    border: none;
-    font-size: 16px;
-    outline: none;
-    padding: 15px 0px 15px 5px;
-  `,
-  Button: styled.button`
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 10px;
-    font-weight: bold;
-    color: ${({ activeTab }) => (activeTab === "personal" ? "black" : "white")};
-    background-color: ${({ activeTab }) =>
-      activeTab === "personal" ? "#fdf25d" : "#5194f6"};
-    border: 1px solid
-      ${({ activeTab }) => (activeTab === "personal" ? "#fae04b" : "#2f6df6")};
-    margin-bottom: 20px;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  `,
-  TabWrapper: styled.div`
-    display: flex;
-    margin-bottom: 10px;
-  `,
-  TabLeft: styled.div`
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px 0 0 10px;
-    background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
-    font-weight: ${({ active }) => (active ? "bold" : "normal")};
-  `,
-  TabRight: styled.div`
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-left: none;
-    border-radius: 0px 10px 10px 0px;
-    background-color: ${({ active }) => (active ? "#fff" : "#f7f7f7")};
-    font-weight: ${({ active }) => (active ? "bold" : "normal")};
-  `,
-  RadioWrapper: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    background-color: #f7f7f7;
-    padding: 15px;
-  `,
-  RadioLabel: styled.label`
-    margin: 0 20px;
-    font-size: 16px;
-  `,
-  RadioInput: styled.input`
-    margin-right: 5px;
-  `,
-};
+import S from "../../uis/FindUI";
 
 const FindID = () => {
   const [activeTab, setActiveTab] = useState("personal");
-  const [searchBy, setSearchBy] = useState("phone");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [resultMessage, setResultMessage] = useState("");
+  const [formData, setFormData] = useState({
+    role: "PERSONAL",
+    name: "",
+    phone: "",
+    businessNumber: "",
+  });
+
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      role: activeTab === "personal" ? "PERSONAL" : "COMPANY",
+    }));
+  }, [activeTab]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "phone" && !/^[0-9]*$/.test(value)) {
+      return;
+    }
+    if (name === "phone" && value.length > 11) {
+      return;
+    }
+    if (name === "businessNumber" && !/^[0-9]*$/.test(value)) {
+      return;
+    }
+    setErrorMessage("");
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    if (activeTab === "personal") {
+      if (!formData.name || !formData.phone) {
+        setErrorMessage("모든 필드를 입력해주세요.");
+        setResultMessage("");
+        return;
+      }
+    } else if (activeTab === "company") {
+      if (!formData.businessNumber || !formData.name || !formData.phone) {
+        setErrorMessage("모든 필드를 입력해주세요.");
+        setResultMessage("");
+        return;
+      }
+    }
+    if (formData.phone.length !== 11) {
+      setErrorMessage("유효한 전화번호를 입력하세요.");
+      setResultMessage("");
+      return;
+    }
+    setErrorMessage("");
+    setResultMessage("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/users/find-id?name=${formData.name}&phone=${formData.phone}&role=${formData.role}` +
+          (formData.role === "COMPANY" && formData.businessNumber
+            ? `&businessNumber=${formData.businessNumber}`
+            : ""),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setResultMessage(`${data.message}!\n\n\n이메일: ${data.data}`);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("아이디 찾기에 실패했습니다. 다시 시도해주세요.");
+        setResultMessage("");
+      }
+    } catch (error) {
+      setErrorMessage("아이디 찾기에 실패했습니다. 다시 시도해주세요.");
+      setResultMessage("");
+    }
+  };
 
   return (
     <S.Wrapper>
@@ -149,35 +112,20 @@ const FindID = () => {
 
         {activeTab === "personal" ? (
           <>
-            <S.RadioWrapper>
-              <S.RadioLabel>
-                <S.RadioInput
-                  type="radio"
-                  name="searchBy"
-                  value="phone"
-                  checked={searchBy === "phone"}
-                  onChange={() => setSearchBy("phone")}
-                />
-                휴대폰 번호
-              </S.RadioLabel>
-              <S.RadioLabel>
-                <S.RadioInput
-                  type="radio"
-                  name="searchBy"
-                  value="email"
-                  checked={searchBy === "email"}
-                  onChange={() => setSearchBy("email")}
-                />
-                이메일 주소
-              </S.RadioLabel>
-            </S.RadioWrapper>
             <S.MultiWrapper>
-              <S.InputFirst type="text" placeholder="이름을 입력해주세요." />
+              <S.InputFirst
+                type="text"
+                name="name"
+                placeholder="이름을 입력해주세요."
+                value={formData.name}
+                onChange={handleChange}
+              />
               <S.InputSecond
                 type="text"
-                placeholder={
-                  searchBy === "phone" ? "휴대폰(- 제외 번호 입력)" : "이메일"
-                }
+                name="phone"
+                placeholder="휴대폰(- 제외 번호 입력)"
+                value={formData.phone}
+                onChange={handleChange}
               />
             </S.MultiWrapper>
           </>
@@ -185,14 +133,30 @@ const FindID = () => {
           <S.MultiWrapper>
             <S.InputFirst
               type="text"
+              name="businessNumber"
               placeholder="사업자등록번호(- 제외 번호 입력)"
+              value={formData.businessNumber}
+              onChange={handleChange}
             />
-            <S.InputFirst type="text" placeholder="담당자명" />
-            <S.InputSecond type="text" placeholder="휴대폰(- 제외 번호 입력)" />
+            <S.InputFirst
+              type="text"
+              name="name"
+              placeholder="담당자명"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <S.InputSecond
+              type="text"
+              name="phone"
+              placeholder="휴대폰(- 제외 번호 입력)"
+              value={formData.phone}
+              onChange={handleChange}
+            />
           </S.MultiWrapper>
         )}
-
-        <S.Button activeTab={activeTab}>
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+        {resultMessage && <S.SuccessMessage>{resultMessage}</S.SuccessMessage>}
+        <S.Button activeTab={activeTab} onClick={handleSubmit}>
           {activeTab === "personal"
             ? "개인회원 아이디 찾기"
             : "기업회원 아이디 찾기"}

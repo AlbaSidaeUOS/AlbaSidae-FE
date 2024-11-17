@@ -4,13 +4,12 @@ import MOCK_RESUME from "../mock/mock-resume";
 import Header from "../components/Header";
 import S from "../uis/ResumeUI";
 
-function resumeDetail() {
-
-    return (
-        <>
-            <Header/>
-        </>
-    )
+function ResumeDetail() {
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
 
-export default resumeDetail;
+export default ResumeDetail;

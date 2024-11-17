@@ -6,7 +6,7 @@ const S = {
   Container: styled.div`
     max-width: 500px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 50px auto;
     padding: 20px 35px 20px 35px;
   `,
@@ -94,6 +94,12 @@ const S = {
   Split: styled.div`
     color: #ddd;
     font-size: 14px;
+  `,
+  ErrorMessage: styled.div`
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 10px;
   `,
 };
 
