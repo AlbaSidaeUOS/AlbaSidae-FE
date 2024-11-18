@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ReactComponent as ProfileImage } from "../images/ProfileImage.svg";
 
 const S = {
   ProfileContainer: styled.div`
@@ -13,6 +14,10 @@ const S = {
       width: 80px;
       height: 80px;
     }
+  `,
+  StandardProfileImage: styled(ProfileImage)`
+    width: 80px;
+    height: 80px;
   `,
   ProfileInfo: styled.div`
     display: flex;
