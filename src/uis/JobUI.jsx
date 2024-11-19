@@ -78,18 +78,21 @@ const S = {
   // `,
 
   StyledButton: styled.button`
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 3px;
     border: 1px solid ${(props) => (props.active ? "#ccc" : "#ccc")};
     border-radius: 10px;
     font-size: 16px;
     appearance: none;
     color: #333;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>')
-      no-repeat right 10px center;
+      no-repeat right 5px center;
     background-color: ${(props) => (props.active ? "#eee" : "#ffffff")};
 
     background-size: 12px;
-    min-width: 130px;
+    min-width: 150px;
     text-align: left;
     cursor: pointer;
     transition: all 0.3s ease;
