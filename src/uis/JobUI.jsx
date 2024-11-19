@@ -1,4 +1,16 @@
 import styled from "styled-components";
+import { keyframes } from "styled-components";
+
+const slideDown = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const S = {
   PageFrame: styled.div`
@@ -27,7 +39,7 @@ const S = {
   FilterSection: styled.div`
     display: flex;
     align-items: center;
-    gap: 1.8rem;
+    gap: 2rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     flex-wrap: nowrap;
@@ -61,21 +73,6 @@ const S = {
       background-color: ${({ active }) => (active ? "#004094" : "#f0f0f0")};
     }
   `,
-
-  // StyledButton: styled.button`
-  //   padding: 10px;
-  //   border: 1px solid #ccc;
-  //   border-radius: 10px;
-  //   font-size: 16px;
-  //   appearance: none;
-  //   color: #333;
-  //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>')
-  //     no-repeat right 10px center;
-  //   background-size: 12px;
-  //   min-width: 130px;
-  //   text-align: left;
-  //   cursor: pointer;
-  // `,
 
   StyledButton: styled.button`
     display: flex;
@@ -112,6 +109,7 @@ const S = {
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #f9f9f9;
+    animation: ${slideDown} 0.3s ease forwards;
   `,
 
   JobTable: styled.table`
