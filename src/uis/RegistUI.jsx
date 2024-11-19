@@ -64,7 +64,7 @@ const S = {
     padding-bottom: 7px;
     border-bottom: 1px solid #bbb;
   `,
-  ResumeTitle: styled.input`
+  ResumeTitle: styled.textarea`
     padding: 10px;
     width: 90%;
     margin: 20px 0 0px 20px;
@@ -73,7 +73,7 @@ const S = {
     border-radius: 10px;
   `,
 
-  ResumeContent: styled.input`
+  ResumeContent: styled.textarea`
     padding: 10px 10px 80px 10px;
     width: 90%;
     margin: 20px 0 0 20px;
@@ -81,7 +81,7 @@ const S = {
     border: 1px solid #ddd;
     border-radius: 10px;
   `,
-  CareerContent: styled.input`
+  CareerContent: styled.textarea`
     padding: 10px 10px 80px 10px;
     width: 90%;
     margin: 20px 0 0 20px;
@@ -211,7 +211,7 @@ const S = {
   ImageContainer: styled.div`
     margin: 10px 0px 0px 23px;
   `,
-  NoticeInput: styled.input`
+  NoticeInput: styled.textarea`
     padding: 10px;
     width: 97.3%;
     margin: 10px 0px 10px 20px;
