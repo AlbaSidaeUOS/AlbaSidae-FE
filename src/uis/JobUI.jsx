@@ -54,27 +54,52 @@ const S = {
     border-radius: 10px;
     font-size: 0.9rem;
     color: ${({ active }) => (active ? "white" : "#333")};
-    background-color: ${({ active }) => (active ? "#333" : "white")};
+    background-color: ${({ active }) => (active ? "#004094" : "white")};
     cursor: pointer;
-
+    transition: all 0.3s ease;
     &:hover {
-      background-color: ${({ active }) => (active ? "#333" : "#f0f0f0")};
+      background-color: ${({ active }) => (active ? "#004094" : "#f0f0f0")};
     }
   `,
 
+  // StyledButton: styled.button`
+  //   padding: 10px;
+  //   border: 1px solid #ccc;
+  //   border-radius: 10px;
+  //   font-size: 16px;
+  //   appearance: none;
+  //   color: #333;
+  //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>')
+  //     no-repeat right 10px center;
+  //   background-size: 12px;
+  //   min-width: 130px;
+  //   text-align: left;
+  //   cursor: pointer;
+  // `,
+
   StyledButton: styled.button`
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid ${(props) => (props.active ? "#ccc" : "#ccc")};
     border-radius: 10px;
     font-size: 16px;
     appearance: none;
     color: #333;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>')
       no-repeat right 10px center;
+    background-color: ${(props) => (props.active ? "#eee" : "#ffffff")};
+
     background-size: 12px;
     min-width: 130px;
     text-align: left;
     cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: ${(props) => (props.active ? "#ccc" : "#f0f0f0")};
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(136, 136, 136, 0.5);
+    }
   `,
 
   FilterBox: styled.div`
