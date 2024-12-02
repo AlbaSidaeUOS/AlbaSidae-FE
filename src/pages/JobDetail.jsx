@@ -143,7 +143,7 @@ const JobDetail = () => {
     navigate(`/editjob/${id}`, { state: { job } });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (requestData) => {
     setErrorMessage("");
     try {
       const response = await fetch(
@@ -155,6 +155,7 @@ const JobDetail = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify(requestData),
           mode: "cors",
         }
       );
@@ -275,7 +276,7 @@ const JobDetail = () => {
             <Modal
               show={showModal}
               onClose={() => setShowModal(false)}
-              onConfirm={handleSubmit}
+              handleSubmit={handleSubmit}
               title={job.title}
               name={job.companyName}
             />
