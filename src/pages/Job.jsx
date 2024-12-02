@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import S from "../uis/JobUI";
 import Header from "../components/Header";
 import FilterGroup from "../components/Job/FilterGroup";
@@ -8,6 +9,7 @@ import { AuthContext } from "../components/auth/AuthContext";
 const Job = () => {
   const { email } = useContext(AuthContext);
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const location = useLocation();
 
   const fetchFilteredJobs = async (filters) => {
     const url = filters
@@ -33,6 +35,23 @@ const Job = () => {
       setFilteredJobs(responseData?.data || []);
     } catch (error) {
       console.error("Failed to fetch: ", error);
+    }
+  };
+
+  const fetchJobsByKeyword = async (keyword) => {
+    const url = `http://localhost:8080/api/job-posts/search?keyword=${encodeURIComponent(
+      keyword
+    )}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch job data by keyword");
+      }
+      const responseData = await response.json();
+      setFilteredJobs(responseData?.data || []);
+    } catch (error) {
+      console.error("Failed to fetch by keyword: ", error);
     }
   };
 
@@ -75,8 +94,15 @@ const Job = () => {
   );
 
   useEffect(() => {
-    fetchFilteredJobs(null);
-  }, []);
+    const params = new URLSearchParams(location.search);
+    const keyword = params.get("keyword");
+
+    if (keyword) {
+      fetchJobsByKeyword(keyword);
+    } else {
+      fetchFilteredJobs(null);
+    }
+  }, [location.search]);
 
   return (
     <>
