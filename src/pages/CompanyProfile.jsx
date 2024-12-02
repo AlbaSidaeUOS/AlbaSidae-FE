@@ -19,7 +19,9 @@ const CompanyProfile = () => {
     const fetchJobData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/job-posts?${encodeURIComponent(email)}`
+          `http://localhost:8080/api/job-posts?email=${encodeURIComponent(
+            email
+          )}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch job data");
