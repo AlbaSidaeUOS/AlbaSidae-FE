@@ -45,7 +45,7 @@ const RegistNotice = () => {
     deadline: "상시모집",
     submitMethod: ["온라인지원"],
     place: "휘경동",
-    address: "서울 동대문구 망우로 74",
+    address: "",
   });
 
   useEffect(() => {
