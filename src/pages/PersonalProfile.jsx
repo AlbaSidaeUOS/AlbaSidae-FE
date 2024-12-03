@@ -56,8 +56,12 @@ const PersonalProfile = () => {
     fetchAppliedJobs();
   }, [isLoggedIn, role, navigate, email]);
 
-  const handleNavigate = (path) => {
-    navigate(path);
+  const handleNavigate = (path, query = null) => {
+    if (query) {
+      navigate(`${path}?${query}`);
+    } else {
+      navigate(path);
+    }
   };
 
   const handleResumeClick = (resumeId) => {
@@ -85,13 +89,27 @@ const PersonalProfile = () => {
                     <S.AlgorithmIcon />
                     맞춤알바
                   </S.ContentContainer>
-                  <S.ContentContainer onClick={() => handleNavigate("/")}>
+                  <S.ContentContainer
+                    onClick={() =>
+                      handleNavigate(
+                        "/job",
+                        `email=${encodeURIComponent(email)}`
+                      )
+                    }
+                  >
                     <S.PaperPlaneIcon />
                     입사지원현황
                   </S.ContentContainer>
                 </S.ContentLeft>
                 <S.ContentRight>
-                  <S.ContentContainer onClick={() => handleNavigate("/resume")}>
+                  <S.ContentContainer
+                    onClick={() =>
+                      handleNavigate(
+                        "/resume",
+                        `email=${encodeURIComponent(email)}`
+                      )
+                    }
+                  >
                     <S.GlassesIcon />
                     이력서열람
                   </S.ContentContainer>
@@ -110,7 +128,7 @@ const PersonalProfile = () => {
                     onClick={() => handleResumeClick(resume.id)}
                   >
                     <S.AppliedJobTitle>
-                      이력서 제목 : {resume.resumeTitle}
+                      이력서 제목: {resume.resumeTitle}
                     </S.AppliedJobTitle>
                     <S.AppliedJobDetails>
                       희망근무지: {resume?.preferredWorkLocation.join(", ")} |
@@ -130,9 +148,7 @@ const PersonalProfile = () => {
                     key={job.id}
                     onClick={() => handleJobClick(job.id)}
                   >
-                    <S.AppliedJobTitle>
-                      공고제목 : {job.title}
-                    </S.AppliedJobTitle>
+                    <S.AppliedJobTitle>공고제목: {job.title}</S.AppliedJobTitle>
                     <S.AppliedJobDetails>
                       회사명: {job.companyName}
                     </S.AppliedJobDetails>

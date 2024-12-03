@@ -11,6 +11,40 @@ const Job = () => {
   const [filteredJobs, setFilteredJobs] = useState([]);
   const location = useLocation();
 
+  const fetchJobsByApplicant = async (applicantEmail) => {
+    const url = `http://localhost:8080/api/job-applications/applied-jobs?email=${encodeURIComponent(
+      applicantEmail
+    )}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch jobs by applicant");
+      }
+      const responseData = await response.json();
+      setFilteredJobs(responseData?.data || []);
+    } catch (error) {
+      console.error("Failed to fetch jobs by applicant: ", error);
+    }
+  };
+
+  const fetchJobsByCompany = async (companyEmail) => {
+    const url = `http://localhost:8080/api/job-posts?email=${encodeURIComponent(
+      companyEmail
+    )}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch jobs by company");
+      }
+      const responseData = await response.json();
+      setFilteredJobs(responseData?.data || []);
+    } catch (error) {
+      console.error("Failed to fetch jobs by company: ", error);
+    }
+  };
+
   const fetchFilteredJobs = async (filters) => {
     const url = filters
       ? "http://localhost:8080/api/job-posts/filter"
@@ -96,8 +130,14 @@ const Job = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const keyword = params.get("keyword");
+    const applicantEmail = params.get("email");
+    const companyEmail = params.get("companyEmail");
 
-    if (keyword) {
+    if (applicantEmail) {
+      fetchJobsByApplicant(applicantEmail);
+    } else if (companyEmail) {
+      fetchJobsByCompany(companyEmail);
+    } else if (keyword) {
       fetchJobsByKeyword(keyword);
     } else {
       fetchFilteredJobs(null);

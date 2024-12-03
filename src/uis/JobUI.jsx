@@ -202,7 +202,7 @@ const S = {
   JobDetailContainer: styled.div`
     padding: 30px;
     background-color: #ffffff;
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
     border-radius: 10px;
     width: 100%;
     max-width: 1075px;
