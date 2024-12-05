@@ -201,20 +201,17 @@ const S = {
   `,
   DetailPageFrame: styled.div`
     background-color: #f7f8fa;
-    min-height: 100vh;
+    padding: 10px 0 50px;
     display: flex;
     flex-direction: column;
   `,
   JobDetailContainer: styled.div`
     padding: 30px;
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 100%;
-    max-width: 1075px;
-    margin: 1rem auto 0;
-    &:last-child {
-      margin-bottom: 1rem;
-    }
+    max-width: 1100px;
+    margin: 10px auto;
   `,
 
   DetailCompanyName: styled.strong`
